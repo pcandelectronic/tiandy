@@ -23,9 +23,6 @@ html,body{
   overflow:hidden;
 }
 
-/* ══════════════════════
-   TOP NAV
-══════════════════════ */
 #nav{
   position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:300;
   display:flex;align-items:center;justify-content:space-between;
@@ -57,9 +54,6 @@ html,body{
 #backBtn:hover,#backBtn:active{border-color:var(--acc);color:var(--acc);}
 #backBtn.show{display:flex;}
 
-/* ══════════════════════
-   BOTTOM MOBILE NAV
-══════════════════════ */
 #botNav{
   display:none;
   position:fixed;bottom:0;left:0;right:0;height:56px;z-index:300;
@@ -77,9 +71,6 @@ html,body{
 .bn-btn.active{color:var(--acc);}
 .bn-btn svg{width:18px;height:18px;flex-shrink:0;}
 
-/* ══════════════════════
-   PANELS
-══════════════════════ */
 .panel{
   position:fixed;
   top:var(--nav-h);left:0;right:0;
@@ -91,9 +82,20 @@ html,body{
 }
 .panel.active{opacity:1;pointer-events:all;transform:translateY(0);}
 
-/* ══════════════════════
-   HOME
-══════════════════════ */
+/* ── SWIPE BACK EDGE INDICATOR ── */
+.swipe-edge{
+  position:fixed;top:var(--nav-h);bottom:var(--bot-h);left:0;
+  width:20px;z-index:200;
+  display:none;
+}
+.swipe-edge.visible{display:block;}
+.swipe-edge-bar{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:4px;height:60px;border-radius:0 4px 4px 0;
+  background:var(--acc);opacity:0;transition:opacity .2s,height .2s;
+}
+
+/* HOME */
 #p-home{display:flex;flex-direction:column;}
 
 .home-top{
@@ -162,9 +164,7 @@ html,body{
   border-radius:4px;flex-shrink:0;
 }
 
-/* ══════════════════════
-   SERIES PANEL — mobile stacked
-══════════════════════ */
+/* SERIES PANEL */
 #p-series{display:flex;flex-direction:column;overflow:hidden;}
 
 .ser-side{
@@ -212,7 +212,6 @@ html,body{
 .s-dot{width:16px;height:2px;background:var(--border);cursor:pointer;transition:all .3s;}
 .s-dot.active{width:28px;background:var(--acc);}
 
-/* SLIDER AREA */
 .ser-slider-wrap{
   flex:1;display:flex;flex-direction:column;
   padding:12px 12px 8px;gap:10px;overflow:hidden;
@@ -237,7 +236,6 @@ html,body{
 .slider-scroll::-webkit-scrollbar{display:none;}
 .slider-track{display:flex;gap:10px;height:100%;}
 
-/* MODEL CARD */
 .m-card{
   flex:0 0 auto;scroll-snap-align:start;
   background:var(--s1);border:1px solid var(--border);
@@ -265,7 +263,6 @@ html,body{
 .m-chips{display:flex;gap:4px;flex-wrap:wrap;}
 .chip{font-family:'Space Mono',monospace;font-size:6px;letter-spacing:1px;padding:2px 6px;border:1px solid var(--border);color:var(--muted);}
 
-/* slider nav */
 .slider-nav{
   display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;
 }
@@ -280,9 +277,7 @@ html,body{
 .sn-btn:active{border-color:var(--acc);background:var(--acc);}
 .sn-btn:disabled{opacity:0.2;pointer-events:none;}
 
-/* ══════════════════════
-   CAMERA DETAIL
-══════════════════════ */
+/* CAMERA DETAIL */
 #p-camera{display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 
 .cam-left{
@@ -327,7 +322,6 @@ html,body{
 }
 .cam-progress-fill{height:100%;background:var(--acc);width:0%;transition:width .3s linear;}
 
-/* right side info */
 .cam-right{
   flex:0 0 auto;
   display:flex;flex-direction:column;
@@ -366,7 +360,6 @@ html,body{
 .feat:last-child{border-bottom:none;}
 .fd{width:4px;height:4px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:4px;}
 
-/* DOWNLOAD BTN */
 .cam-download-wrap{
   padding-top:14px;margin-top:4px;
   border-top:1px solid var(--border);
@@ -387,9 +380,7 @@ html,body{
   color:var(--muted);text-align:center;margin-top:7px;opacity:0.6;
 }
 
-/* ══════════════════════
-   DESKTOP (≥768px) — restore side-by-side layout
-══════════════════════ */
+/* DESKTOP */
 @media(min-width:768px){
   :root{--nav-h:64px;--bot-h:0px;}
   #botNav{display:none!important;}
@@ -398,7 +389,6 @@ html,body{
   #breadBar{font-size:10px;letter-spacing:2px;}
   #backBtn{font-size:10px;padding:7px 18px;}
 
-  /* HOME */
   .home-top{padding:32px 24px 28px;}
   .home-eye{font-size:11px;letter-spacing:5px;}
   .home-title img{height:90px;}
@@ -414,7 +404,6 @@ html,body{
   .s-card:hover{background:var(--s2);transform:translateY(-2px);}
   .s-card:active{transform:none;}
 
-  /* SERIES */
   #p-series{flex-direction:row;}
   .ser-side{
     flex:0 0 260px;max-width:260px;
@@ -436,7 +425,6 @@ html,body{
   .m-card:hover{border-color:var(--acc);background:var(--s2);transform:translateY(-3px);}
   .m-card:active{transform:none;}
 
-  /* CAMERA */
   #p-camera{flex-direction:row;overflow:hidden;}
   .cam-left{
     flex:0 0 50%;border-bottom:none;border-right:1px solid var(--border);
@@ -455,9 +443,6 @@ html,body{
   .feat{font-size:12px;}
 }
 
-/* ══════════════════════
-   LARGE DESKTOP (≥1200px)
-══════════════════════ */
 @media(min-width:1200px){
   .ser-side{flex:0 0 280px;max-width:280px;padding:36px 28px;}
   .ser-side-code{font-size:96px;}
@@ -483,9 +468,7 @@ html,body{
   .s-bigcode{font-size:150px;}
 }
 
-/* ══════════════════════
-   MOBILE — show bottom nav
-══════════════════════ */
+/* MOBILE */
 @media(max-width:767px){
   :root{--bot-h:56px;}
   #botNav{display:flex;}
@@ -495,9 +478,6 @@ html,body{
   #breadBar{display:none!important;}
 }
 
-/* ══════════════════════
-   VERY SMALL (≤360px)
-══════════════════════ */
 @media(max-width:360px){
   .s-card{padding:14px 10px;min-height:120px;}
   .s-code{font-size:28px;}
@@ -781,11 +761,78 @@ const DRIVE_LINKS={
   'TC-H363N 9DB-4':'https://drive.google.com/file/d/1wxBYLeBQ4PIYv2AErfCkJckwfAJgtbqK/view',
 };
 
+/* ══════════════════════════════════════════
+   HISTORY / BACK BUTTON SUPPORT
+══════════════════════════════════════════ */
+function pushState(state){
+  history.pushState(state,document.title,location.pathname);
+}
+function handlePopState(e){
+  const st=e.state;
+  if(!st||st.page==='home'){
+    _goHome(false);
+  } else if(st.page==='series'){
+    if(curC){_backSer(false);}
+    else{_goHome(false);}
+  }
+}
+window.addEventListener('popstate',handlePopState);
+history.replaceState({page:'home'},document.title);
+
+/* ══════════════════════════════════════════
+   TOUCH SWIPE — global swipe-right = back
+   Also handles swipe on camera panel
+══════════════════════════════════════════ */
+(function(){
+  let tx=0,ty=0,swiping=false;
+  const MIN_H=40,MAX_V=80,START_ZONE=60;
+
+  document.addEventListener('touchstart',e=>{
+    const t=e.touches[0];
+    tx=t.clientX;ty=t.clientY;
+    swiping=tx<START_ZONE;
+  },{passive:true});
+
+  document.addEventListener('touchend',e=>{
+    if(!swiping)return;
+    const t=e.changedTouches[0];
+    const dx=t.clientX-tx,dy=Math.abs(t.clientY-ty);
+    if(dx>MIN_H&&dy<MAX_V){
+      if(curC){backSer();}
+      else if(curS){goHome();}
+    }
+    swiping=false;
+  },{passive:true});
+})();
+
+/* ══════════════════════════════════════════
+   TOUCH SWIPE ON MODEL IMAGES (photo viewer)
+══════════════════════════════════════════ */
+(function(){
+  let tx=0,ty=0;
+  const el=document.getElementById('p-camera');
+  el.addEventListener('touchstart',e=>{
+    if(e.target.closest('.cam-right'))return;
+    tx=e.touches[0].clientX;ty=e.touches[0].clientY;
+  },{passive:true});
+  el.addEventListener('touchend',e=>{
+    if(e.target.closest('.cam-right'))return;
+    const dx=e.changedTouches[0].clientX-tx;
+    const dy=Math.abs(e.changedTouches[0].clientY-ty);
+    if(Math.abs(dx)>40&&dy<60){
+      const newIdx=dx<0
+        ?Math.min(3,curImgIdx+1)
+        :Math.max(1,curImgIdx-1);
+      if(newIdx!==curImgIdx&&curC) setMainImg(curC,newIdx,true);
+    }
+  },{passive:true});
+})();
+
 /* ── MOBILE BOT NAV ── */
 function setBotNav(active){
   ['home','series','camera'].forEach(id=>{
     const el=document.getElementById('bn-'+id);
-    if(el){el.classList.toggle('active',id===active);el.disabled=(id!=='home'&&!curS&&id==='series')||(id==='camera'&&!curC);}
+    if(el) el.classList.toggle('active',id===active);
   });
   const bs=document.getElementById('bn-series');
   const bc=document.getElementById('bn-camera');
@@ -910,6 +957,7 @@ function showCam(id){
   document.getElementById('p-camera').scrollTop=0;
   nav();show('p-camera');setBotNav('camera');
   startAutoSlide(id);
+  pushState({page:'camera',series:curS,camera:id});
 }
 
 /* ── NAV / ROUTING ── */
@@ -926,9 +974,21 @@ function nav(){
   }
   bar.innerHTML=h;
 }
-function goHome(){curS=null;curC=null;_curModelData=null;stopAutoSlide();nav();show('p-home');setBotNav('home');}
-function backSer(){curC=null;_curModelData=null;slideIdx=0;stopAutoSlide();nav();renderSlider();show('p-series');setBotNav('series');}
+
+/* Internal nav without pushing history (used by popstate handler) */
+function _goHome(push){
+  curS=null;curC=null;_curModelData=null;stopAutoSlide();nav();show('p-home');setBotNav('home');
+  if(push) pushState({page:'home'});
+}
+function _backSer(push){
+  curC=null;_curModelData=null;slideIdx=0;stopAutoSlide();nav();renderSlider();show('p-series');setBotNav('series');
+  if(push) pushState({page:'series',series:curS});
+}
+
+function goHome(){_goHome(true);}
+function backSer(){_backSer(true);}
 function goBack(){if(curC)backSer();else goHome();}
+
 function showSeries(code){
   curS=code;curC=null;_curModelData=null;slideIdx=0;
   const d=DATA[code];
@@ -939,6 +999,7 @@ function showSeries(code){
   document.getElementById('sSub').textContent=d.sub;
   document.getElementById('sCountNum').textContent=d.models.length;
   renderSlider();nav();show('p-series');setBotNav('series');
+  pushState({page:'series',series:code});
 }
 window.addEventListener('resize',()=>{if(curS&&!curC) renderSlider();});
 </script>
