@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tiandy Camera About</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080a0e;--s1:#0f1218;--s2:#161c26;
+  --border:rgba(196, 176, 176, 0.07);
+  --acc:#c8a96e;--acc2:#e8d5a8;
+  --txt:#e8e6e1;--muted:#cac4c4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  background:url(./images/background.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  font-family:'DM Sans',sans-serif;
+}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(8,10,14,0.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+@media(max-width:600px){
+  #nav{padding:0 16px;}
+}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:5px;color:rgb(12,197,12);cursor:pointer;}
+#breadBar{display:none;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);}
+#breadBar .sep{color:var(--acc);}
+#breadBar .crumb{cursor:pointer;transition:color .2s;}
+#breadBar .crumb:hover{color:var(--acc);}
+#breadBar .crumb.cur{color:var(--txt);cursor:default;}
+#backBtn{
+  display:none;align-items:center;gap:8px;
+  background:none;border:1px solid var(--border);
+  color:var(--txt);padding:7px 18px;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+#backBtn:hover{border-color:var(--acc);color:var(--acc);}
+#backBtn.show{display:flex;}
+
+/* ── PANELS ── */
+.panel{
+  position:fixed;top:64px;left:0;right:0;bottom:0;
+  overflow:hidden;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;
+  transform:translateY(10px);
+}
+.panel.active{opacity:1;pointer-events:all;transform:translateY(0);}
+
+/* ════════════════════════
+   HOME
+════════════════════════ */
+#p-home{display:flex;flex-direction:column;}
+.home-top{
+  flex:0 0 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 24px 28px;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.home-top::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 100% at 50% 50%,rgba(200,169,110,.07) 0%,transparent 70%);
+}
+.home-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:50px 50px;
+  mask-image:radial-gradient(ellipse 80% 90% at 50% 50%,black 0%,transparent 100%);
+}
+.home-eye{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;font-weight:bold;color:var(--acc);position:relative;margin-bottom:10px;text-align:center;}
+.home-title{width:100px;height:100px;display:flex;justify-content:center;}
+.home-sub{margin-top:10px;font-size:12px;font-weight:300;color:var(--muted);position:relative;}
+
+.series-row{
+  flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;padding:20px 24px 24px;overflow:auto;
+}
+@media(max-width:600px){
+  .series-row{grid-template-columns:1fr 1fr;gap:12px;padding:12px;}
+  .home-eye{font-size:9px;letter-spacing:3px;}
+}
+.s-card{
+  position:relative;background:rgba(255,255,255,0.026);border-radius:18px;
+  box-shadow:0 4px 30px rgba(0,0,0,0.1);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);
+  display:flex;flex-direction:column;transition:background .3s,transform .3s;
+  padding:32px 28px;cursor:pointer;overflow:hidden;min-height:200px;
+}
+@media(max-width:600px){
+  .s-card{padding:20px 16px;min-height:160px;}
+  .s-code{font-size:36px!important;}
+  .s-bigcode{font-size:80px!important;}
+}
+.s-card:hover{background:var(--s2);transform:translateY(-2px);}
+.s-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,169,110,.05) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.s-card:hover::after{opacity:1;}
+.s-bigcode{
+  position:absolute;right:-1px;bottom:-24px;
+  font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:1;letter-spacing:6px;
+  color:rgb(81,81,77);pointer-events:none;transition:color .3s;
+}
+.s-card:hover .s-bigcode{color:rgba(255,255,255,0.06);}
+.s-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--acc);margin-bottom:16px;}
+.s-code{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;margin-bottom:8px;color:aliceblue;}
+.s-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;flex:1;}
+.s-footer{margin-top:20px;display:flex;align-items:center;justify-content:space-between;}
+.s-count{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
+.s-arrow{width:34px;height:34px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.s-card:hover .s-arrow{border-color:var(--acc);background:var(--acc);}
+.s-card:hover .s-arrow path{stroke:var(--bg);}
+
+/* ════════════════════════
+   SERIES — left info + right slider
+════════════════════════ */
+#p-series{display:grid;grid-template-columns:280px 1fr;}
+@media(max-width:900px){
+  #p-series{grid-template-columns:1fr;grid-template-rows:auto 1fr;}
+}
+
+/* LEFT SIDE */
+.ser-side{
+  background:var(--s1);border-right:1px solid var(--border);
+  padding:36px 28px;display:flex;flex-direction:column;overflow:hidden;
+  position:relative;
+}
+@media(max-width:900px){
+  .ser-side{
+    border-right:none;border-bottom:1px solid var(--border);
+    padding:20px 20px 16px;
+    flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:12px;
+  }
+  .ser-side-code{font-size:52px!important;margin-bottom:0!important;}
+  .ser-side-name{margin-bottom:0!important;}
+  .ser-divider{display:none;}
+  .ser-side-sub{display:none;}
+  .ser-side-bottom{margin-top:0;padding-top:0;border-top:none;display:flex;align-items:center;gap:16px;}
+  .ser-count-num{font-size:28px!important;margin-bottom:0!important;}
+}
+.ser-side::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 100% 60% at 50% 0%,rgba(200,169,110,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.ser-side-eyebrow{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:4px;
+  color:var(--acc);margin-bottom:12px;position:relative;
+}
+.ser-side-code{
+  font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:1;letter-spacing:3px;
+  background:linear-gradient(135deg,var(--acc) 0%,var(--acc2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:4px;position:relative;
+}
+.ser-side-name{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;
+  color:var(--txt);margin-bottom:16px;position:relative;
+}
+.ser-divider{
+  width:40px;height:1px;background:var(--acc);margin-bottom:16px;opacity:0.5;
+}
+.ser-side-sub{
+  font-size:11px;color:var(--muted);font-weight:300;line-height:1.8;flex:1;position:relative;
+}
+
+/* model count + dots at bottom */
+.ser-side-bottom{
+  margin-top:28px;padding-top:20px;border-top:1px solid var(--border);
+  position:relative;
+}
+.ser-count-label{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--muted);
+  margin-bottom:10px;
+}
+.ser-count-num{
+  font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;
+  color:var(--acc);line-height:1;margin-bottom:14px;
+}
+.ser-count-unit{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--muted);
+  margin-left:6px;vertical-align:middle;
+}
+
+/* slider dots */
+.slider-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.s-dot{
+  width:20px;height:2px;background:var(--border);
+  cursor:pointer;transition:all .3s;
+}
+.s-dot.active{width:36px;background:var(--acc);}
+
+/* RIGHT SIDE — slider */
+.ser-slider-wrap{
+  display:flex;flex-direction:column;
+  padding:32px 32px 28px;gap:16px;overflow:hidden;
+  position:relative;
+}
+@media(max-width:600px){
+  .ser-slider-wrap{padding:16px 12px 12px;gap:10px;}
+}
+.ser-lbl{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;
+  color:var(--acc);flex-shrink:0;
+}
+
+/* The actual slider viewport */
+.slider-viewport{
+  flex:1;overflow:hidden;position:relative;
+  touch-action:pan-x;
+}
+
+/* Touch-scroll wrapper */
+.slider-scroll{
+  width:100%;height:100%;
+  overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.slider-scroll::-webkit-scrollbar{display:none;}
+
+.slider-track{
+  display:flex;gap:18px;height:100%;
+  transition:none;
+  will-change:transform;
+}
+@media(max-width:600px){
+  .slider-track{gap:12px;}
+}
+
+/* Each card in slider */
+.m-card{
+  flex:0 0 auto;
+  background:var(--s1);border:1px solid var(--border);
+  cursor:pointer;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .3s,transform .25s,background .3s;
+  min-width:0;
+}
+.m-card:hover{border-color:var(--acc);background:var(--s2);transform:translateY(-4px);}
+@media(hover:none){
+  .m-card:hover{transform:none;}
+  .m-card:active{border-color:var(--acc);background:var(--s2);}
+}
+
+.m-img{
+  flex:1;background:var(--s2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;min-height:120px;
+}
+.m-img img{
+  width:100%;height:100%;object-fit:contain;
+  transition:transform .3s;padding:12px;
+}
+.m-card:hover .m-img img{transform:scale(1.07);}
+.m-badge{
+  position:absolute;top:8px;left:8px;
+  font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;
+  padding:3px 7px;background:var(--acc);color:var(--bg);
+}
+.m-info{padding:14px 16px 16px;flex-shrink:0;}
+.m-ser{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--acc);margin-bottom:3px;}
+.m-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;margin-bottom:4px;color: aquamarine;}
+.m-line{font-size:9px;color:var(--muted);font-weight:300;line-height:1.4;margin-bottom:10px;}
+.m-chips{display:flex;gap:4px;flex-wrap:wrap;}
+.chip{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 7px;border:1px solid var(--border);color:var(--muted);}
+
+/* Slider nav arrows */
+.slider-nav{
+  display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-shrink:0;
+}
+.sn-btn{
+  width:40px;height:40px;border:1px solid var(--border);background:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .25s;color:var(--txt);
+}
+.sn-btn:hover{border-color:var(--acc);background:var(--acc);}
+.sn-btn:hover svg path{stroke:var(--bg);}
+.sn-btn:disabled{opacity:0.25;cursor:default;}
+.sn-btn:disabled:hover{border-color:var(--border);background:none;}
+.sn-btn:disabled:hover svg path{stroke:var(--txt);}
+.sn-progress{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--muted);flex:1;
+}
+.sn-cur{color:var(--acc);}
+
+/* Swipe hint on mobile */
+.swipe-hint{
+  display:none;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;
+  color:var(--muted);text-align:center;padding:4px 0;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+@media(max-width:900px){
+  .swipe-hint{display:block;}
+  .slider-nav .sn-btn{display:none;}
+}
+
+/* ════════════════════════
+   CAMERA DETAIL
+════════════════════════ */
+#p-camera{display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:800px){
+  #p-camera{grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow-y:auto;}
+}
+
+.cam-left{
+  background:var(--s1);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:32px;gap:20px;
+}
+@media(max-width:800px){
+  .cam-left{border-right:none;border-bottom:1px solid var(--border);padding:20px;gap:12px;}
+}
+.cam-left-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(200,169,110,.07) 0%,transparent 70%);
+}
+
+.cam-img{
+  position:relative;z-index:1;
+  width:100%;max-width:340px;
+  animation:fl 4s ease-in-out infinite;
+}
+.cam-img img{
+  width:100%;height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 24px 40px rgba(200,169,110,.18));
+  display:block;
+}
+@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+
+.cam-thumbs{
+  position:relative;z-index:1;
+  display:flex;gap:8px;
+}
+.cam-th{
+  width:56px;height:56px;
+  background:var(--s2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;overflow:hidden;
+}
+.cam-th img{
+  width:100%;height:100%;
+  object-fit:contain;padding:4px;
+  opacity:.55;transition:opacity .2s;
+}
+.cam-th.on{border-color:var(--acc);}
+.cam-th.on img,.cam-th:hover img{opacity:1;}
+
+.cam-progress-bar{
+  position:relative;z-index:1;
+  width:100%;max-width:340px;
+  height:2px;background:var(--border);
+  overflow:hidden;
+}
+.cam-progress-fill{
+  height:100%;background:var(--acc);
+  width:0%;
+  transition:width 0.3s linear;
+}
+
+.cam-right{
+  display:flex;flex-direction:column;
+  padding:28px 36px 28px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+@media(max-width:800px){
+  .cam-right{padding:20px 16px;}
+}
+.cam-badge{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--acc);
+  border:1px solid rgba(200,169,110,.25);padding:4px 12px;margin-bottom:12px;
+}
+.cam-mnum{font-family:'Space Mono',monospace;font-size:19px;font-weight:bold;color:rgb(26,218,12);letter-spacing:2px;margin-bottom:12px;}
+.cam-desc{
+  font-size:14px;color:var(--muted);line-height:1.7;font-weight:300;
+  margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.cam-specs{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);margin-bottom:12px;flex-shrink:0;
+}
+@media(max-width:500px){
+  .cam-specs{grid-template-columns:repeat(2,1fr);}
+}
+.sp{background:var(--s1);padding:10px 12px;}
+.sp-k{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:white;margin-bottom:3px;}
+.sp-v{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:rgb(26,218,12);}
+.sp-u{font-size:8px;color:var(--acc);margin-left:2px;}
+.cam-feats{flex-shrink:0;}
+.feat{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:7px 0;border-bottom:1px solid var(--border);
+  font-size:12px;color:var(--muted);line-height:1.5;flex-shrink:0;
+}
+.feat:last-child{border-bottom:none;}
+.fd{width:4px;height:4px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:4px;}
+
+/* ── DOWNLOAD BUTTON ── */
+.cam-download-wrap{
+  flex-shrink:0;
+  padding-top:16px;
+  margin-top:4px;
+  border-top:1px solid var(--border);
+}
+.cam-dl-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  padding:12px 20px;
+  background:transparent;
+  border:1px solid rgba(200,169,110,0.5);
+  color:var(--acc);
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:3px;
+  cursor:pointer;
+  transition:all .25s;
+  position:relative;
+  overflow:hidden;
+}
+.cam-dl-btn::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,169,110,.08) 0%,transparent 60%);
+  opacity:0;
+  transition:opacity .25s;
+}
+.cam-dl-btn:hover{
+  border-color:var(--acc);
+  background:rgba(200,169,110,.08);
+  color:var(--acc2);
+}
+.cam-dl-btn:hover::before{opacity:1;}
+.cam-dl-btn:active{transform:scale(0.98);}
+.cam-dl-btn svg{flex-shrink:0;transition:transform .25s;}
+.cam-dl-btn:hover svg{transform:translateY(2px);}
+.cam-dl-note{
+  font-family:'Space Mono',monospace;
+  font-size:8px;letter-spacing:2px;
+  color:var(--muted);
+  text-align:center;
+  margin-top:8px;
+  opacity:0.6;
+}
+
+/* ════════════════════════
+   BIG SCREEN / TV RESPONSIVE
+════════════════════════ */
+@media(min-width:1920px){
+  :root{--nav-h: 80px;}
+  #nav{height:80px;padding:0 80px;}
+  .logo img{width:260px;height:auto;}
+  #breadBar{font-size:13px;letter-spacing:3px;gap:12px;}
+  #backBtn{font-size:13px;padding:10px 26px;letter-spacing:3px;}
+  .panel{top:80px;}
+  .home-eye{font-size:14px;letter-spacing:7px;margin-bottom:16px;}
+  .home-title{width:150px;height:150px;}
+  .home-sub{font-size:16px;margin-top:16px;}
+  .series-row{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;padding:32px 80px 40px;}
+  .s-card{padding:44px 36px;min-height:280px;border-radius:22px;}
+  .s-num{font-size:11px;letter-spacing:5px;margin-bottom:20px;}
+  .s-code{font-size:72px;margin-bottom:12px;}
+  .s-bigcode{font-size:160px;}
+  .s-desc{font-size:15px;line-height:1.8;}
+  .s-count{font-size:11px;}
+  .s-arrow{width:46px;height:46px;}
+  .s-footer{margin-top:28px;}
+  #p-series{grid-template-columns:360px 1fr;}
+  .ser-side{padding:52px 40px;}
+  .ser-side-eyebrow{font-size:11px;letter-spacing:5px;margin-bottom:18px;}
+  .ser-side-code{font-size:140px;}
+  .ser-side-name{font-size:28px;letter-spacing:6px;margin-bottom:22px;}
+  .ser-divider{width:60px;margin-bottom:22px;}
+  .ser-side-sub{font-size:14px;line-height:2;}
+  .ser-count-label{font-size:11px;letter-spacing:4px;}
+  .ser-count-num{font-size:60px;margin-bottom:20px;}
+  .ser-count-unit{font-size:11px;}
+  .s-dot{width:28px;height:3px;}
+  .s-dot.active{width:50px;}
+  .slider-dots{gap:8px;}
+  .ser-slider-wrap{padding:48px 48px 40px;gap:24px;}
+  .ser-lbl{font-size:12px;letter-spacing:5px;}
+  .m-img{min-height:200px;}
+  .m-img img{padding:20px;}
+  .m-badge{font-size:9px;letter-spacing:3px;padding:5px 10px;top:12px;left:12px;}
+  .m-info{padding:20px 22px 22px;}
+  .m-ser{font-size:9px;letter-spacing:3px;}
+  .m-name{font-size:28px;letter-spacing:3px;margin-bottom:6px;}
+  .m-line{font-size:12px;margin-bottom:14px;}
+  .chip{font-size:9px;padding:3px 10px;}
+  .sn-btn{width:52px;height:52px;}
+  .sn-progress{font-size:12px;letter-spacing:3px;}
+  .cam-left{padding:48px;gap:28px;}
+  .cam-img{max-width:480px;}
+  .cam-th{width:80px;height:80px;}
+  .cam-thumbs{gap:12px;}
+  .cam-progress-bar{max-width:480px;height:3px;}
+  .cam-right{padding:48px 56px;}
+  .cam-badge{font-size:11px;letter-spacing:4px;padding:6px 18px;margin-bottom:18px;}
+  .cam-mnum{font-size:26px;letter-spacing:3px;margin-bottom:18px;}
+  .cam-desc{font-size:16px;line-height:1.9;margin-bottom:18px;padding-bottom:18px;}
+  .cam-specs{grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:18px;}
+  .sp{padding:16px 18px;}
+  .sp-k{font-size:10px;letter-spacing:3px;margin-bottom:5px;}
+  .sp-v{font-size:24px;}
+  .sp-u{font-size:11px;}
+  .feat{padding:10px 0;font-size:14px;gap:14px;}
+  .fd{width:6px;height:6px;margin-top:5px;}
+  .cam-dl-btn{font-size:12px;letter-spacing:4px;padding:14px 24px;}
+}
+
+@media(min-width:2560px){
+  #nav{height:96px;padding:0 120px;}
+  .logo img{width:320px;}
+  #breadBar{font-size:15px;letter-spacing:4px;}
+  #backBtn{font-size:15px;padding:12px 32px;}
+  .panel{top:96px;}
+  .home-eye{font-size:17px;letter-spacing:9px;}
+  .home-title{width:200px;height:200px;}
+  .home-sub{font-size:20px;}
+  .series-row{grid-template-columns:repeat(5,1fr);gap:36px;padding:40px 120px 56px;}
+  .s-card{padding:56px 44px;min-height:340px;border-radius:28px;}
+  .s-num{font-size:13px;letter-spacing:6px;}
+  .s-code{font-size:96px;}
+  .s-bigcode{font-size:200px;}
+  .s-desc{font-size:17px;}
+  .s-count{font-size:13px;}
+  .s-arrow{width:58px;height:58px;}
+  #p-series{grid-template-columns:460px 1fr;}
+  .ser-side{padding:72px 56px;}
+  .ser-side-eyebrow{font-size:14px;letter-spacing:6px;}
+  .ser-side-code{font-size:180px;}
+  .ser-side-name{font-size:36px;letter-spacing:8px;}
+  .ser-side-sub{font-size:16px;}
+  .ser-count-num{font-size:80px;}
+  .s-dot{width:36px;height:4px;}
+  .s-dot.active{width:64px;}
+  .ser-slider-wrap{padding:64px 64px 56px;gap:32px;}
+  .ser-lbl{font-size:14px;letter-spacing:6px;}
+  .m-img{min-height:280px;}
+  .m-name{font-size:36px;}
+  .m-line{font-size:14px;}
+  .chip{font-size:11px;padding:4px 14px;}
+  .sn-btn{width:64px;height:64px;}
+  .cam-left{padding:64px;gap:36px;}
+  .cam-img{max-width:600px;}
+  .cam-th{width:100px;height:100px;}
+  .cam-right{padding:64px 80px;}
+  .cam-badge{font-size:13px;padding:8px 22px;}
+  .cam-mnum{font-size:32px;}
+  .cam-desc{font-size:19px;line-height:2;}
+  .sp{padding:20px 24px;}
+  .sp-k{font-size:12px;}
+  .sp-v{font-size:30px;}
+  .sp-u{font-size:13px;}
+  .feat{padding:13px 0;font-size:17px;}
+  .fd{width:7px;height:7px;}
+}
+
+@media(min-width:3840px){
+  :root{font-size:22px;}
+  #nav{height:128px;padding:0 200px;}
+  .logo img{width:480px;}
+  #breadBar{font-size:20px;letter-spacing:6px;}
+  #backBtn{font-size:20px;padding:16px 48px;letter-spacing:5px;}
+  .panel{top:128px;}
+  .home-eye{font-size:24px;letter-spacing:14px;}
+  .home-title{width:300px;height:300px;}
+  .home-sub{font-size:28px;}
+  .series-row{grid-template-columns:repeat(5,1fr);gap:56px;padding:64px 200px 80px;}
+  .s-card{padding:80px 64px;min-height:480px;border-radius:40px;}
+  .s-num{font-size:18px;letter-spacing:8px;}
+  .s-code{font-size:140px;}
+  .s-bigcode{font-size:300px;}
+  .s-desc{font-size:24px;line-height:2;}
+  .s-count{font-size:18px;}
+  .s-arrow{width:80px;height:80px;}
+  .s-footer{margin-top:48px;}
+  #p-series{grid-template-columns:700px 1fr;}
+  .ser-side{padding:112px 88px;}
+  .ser-side-eyebrow{font-size:20px;letter-spacing:10px;margin-bottom:32px;}
+  .ser-side-code{font-size:280px;}
+  .ser-side-name{font-size:56px;letter-spacing:12px;margin-bottom:40px;}
+  .ser-divider{width:100px;height:2px;margin-bottom:40px;}
+  .ser-side-sub{font-size:24px;line-height:2.2;}
+  .ser-count-label{font-size:18px;letter-spacing:6px;margin-bottom:20px;}
+  .ser-count-num{font-size:120px;margin-bottom:32px;}
+  .ser-count-unit{font-size:18px;}
+  .s-dot{width:56px;height:6px;}
+  .s-dot.active{width:96px;}
+  .slider-dots{gap:14px;}
+  .ser-slider-wrap{padding:96px 96px 80px;gap:48px;}
+  .ser-lbl{font-size:20px;letter-spacing:10px;}
+  .m-img{min-height:400px;}
+  .m-img img{padding:32px;}
+  .m-badge{font-size:14px;padding:8px 18px;top:20px;left:20px;}
+  .m-info{padding:32px 36px 36px;}
+  .m-ser{font-size:14px;letter-spacing:5px;margin-bottom:8px;}
+  .m-name{font-size:52px;letter-spacing:5px;margin-bottom:12px;}
+  .m-line{font-size:20px;margin-bottom:24px;}
+  .chip{font-size:16px;padding:6px 20px;letter-spacing:2px;}
+  .sn-btn{width:96px;height:96px;}
+  .sn-progress{font-size:20px;letter-spacing:5px;}
+  .cam-left{padding:96px;gap:56px;}
+  .cam-img{max-width:900px;}
+  .cam-th{width:160px;height:160px;}
+  .cam-thumbs{gap:20px;}
+  .cam-progress-bar{max-width:900px;height:5px;}
+  .cam-right{padding:96px 128px;}
+  .cam-badge{font-size:18px;letter-spacing:6px;padding:12px 32px;margin-bottom:32px;}
+  .cam-mnum{font-size:52px;letter-spacing:5px;margin-bottom:32px;}
+  .cam-desc{font-size:28px;line-height:2.1;margin-bottom:32px;padding-bottom:32px;}
+  .cam-specs{grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:32px;}
+  .sp{padding:32px 36px;}
+  .sp-k{font-size:18px;letter-spacing:5px;margin-bottom:10px;}
+  .sp-v{font-size:48px;}
+  .sp-u{font-size:20px;}
+  .feat{padding:20px 0;font-size:26px;gap:24px;}
+  .fd{width:10px;height:10px;margin-top:8px;}
+  .cam-feats .feat:last-child{border-bottom:none;}
+  .cam-dl-btn{font-size:16px;letter-spacing:5px;padding:20px 32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div id="nav">
+  <div class="logo" onclick="goHome()"><img src="./images/PC LOGO 01.png" alt="Tiandy" width="200px" height="200px"></div>
+  <div id="breadBar"></div>
+  <button id="backBtn" onclick="goBack()">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M8 2L4 6L8 10" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+    BACK
+  </button>
+</div>
+
+<!-- HOME -->
+<div class="panel active" id="p-home">
+  <div class="home-top">
+    <div class="home-grid"></div>
+    <div class="home-eye">Build SL Housing &amp; Construction International Exhibition 2026</div>
+    <h1 class="home-title"><img src="./images/Tiandy.png"></h1>
+    <p class="home-sub">Vision For World.</p>
+  </div>
+  <div class="series-row">
+    <div class="s-card" onclick="showSeries('AK')">
+      <div class="s-bigcode">AK</div>
+      <div class="s-num">SERIES 01</div>
+      <div class="s-code">AK IPC</div>
+      <p class="s-desc">Entry-level Network Camera</p>
+      <div class="s-footer">
+        <div class="s-count">3 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+    <div class="s-card" onclick="showSeries('SK')">
+      <div class="s-bigcode">SK</div>
+      <div class="s-num">SERIES 02</div>
+      <div class="s-code">SK IPC</div>
+      <p class="s-desc">SMB Network Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">9 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+    <div class="s-card" onclick="showSeries('LK')">
+      <div class="s-bigcode">LK</div>
+      <div class="s-num">SERIES 03</div>
+      <div class="s-code">LK IPC</div>
+      <p class="s-desc">Professional Network Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">4 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+    <div class="s-card" onclick="showSeries('Tian')">
+      <div class="s-bigcode">Tian</div>
+      <div class="s-num">SERIES 04</div>
+      <div class="s-code">TIAN</div>
+      <p class="s-desc">Wireless Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">4 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+    <div class="s-card" onclick="showSeries('PTZ')">
+      <div class="s-bigcode">PTZ</div>
+      <div class="s-num">SERIES 05</div>
+      <div class="s-code">Pro PTZ</div>
+      <p class="s-desc">Pan Tilt Zoom Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">4 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+    <div class="s-card" onclick="showSeries('4G camera')">
+      <div class="s-bigcode">4G</div>
+      <div class="s-num">SERIES 06</div>
+      <div class="s-code">4G</div>
+      <p class="s-desc">4G Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">2 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES (left info + right slider) -->
+<div class="panel" id="p-series">
+  <div class="ser-side">
+    <div class="ser-side-eyebrow" id="sEyebrow">SERIES 01</div>
+    <div class="ser-side-code" id="sCode">AK</div>
+    <div class="ser-side-name" id="sName">AK SERIES</div>
+    <div class="ser-divider"></div>
+    <p class="ser-side-sub" id="sSub"></p>
+    <div class="ser-side-bottom">
+      <div class="ser-count-label">AVAILABLE MODELS</div>
+      <div class="ser-count-num">
+        <span id="sCountNum">4</span><span class="ser-count-unit">MODELS</span>
+      </div>
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+  </div>
+  <div class="ser-slider-wrap">
+    <div class="ser-lbl">SELECT YOUR MODEL</div>
+    <div class="swipe-hint">← SWIPE TO BROWSE MODELS →</div>
+    <div class="slider-viewport">
+      <div class="slider-scroll" id="sliderScroll">
+        <div class="slider-track" id="sliderTrack"></div>
+      </div>
+    </div>
+    <div class="slider-nav">
+      <div class="sn-progress">
+        <span class="sn-cur" id="snCur">01</span> / <span id="snTotal">04</span>
+      </div>
+      <button class="sn-btn" id="btnPrev" onclick="slideBy(-1)" disabled>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 2L5 7L9 12" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+      <button class="sn-btn" id="btnNext" onclick="slideBy(1)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M5 2L9 7L5 12" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMERA DETAIL -->
+<div class="panel" id="p-camera">
+  <div class="cam-left">
+    <div class="cam-left-bg"></div>
+    <div class="cam-img" id="camImg"></div>
+    <div class="cam-thumbs" id="camThumbs"></div>
+    <div class="cam-progress-bar"><div class="cam-progress-fill" id="camProgressFill"></div></div>
+  </div>
+  <div class="cam-right">
+    <div class="cam-badge" id="camBadge"></div>
+    <div class="cam-mnum" id="camMnum"></div>
+    <div class="cam-desc" id="camDesc"></div>
+    <div class="cam-specs" id="camSpecs"></div>
+    <div class="cam-feats" id="camFeats"></div>
+    <!-- DOWNLOAD SPEC SHEET BUTTON -->
+    <div class="cam-download-wrap">
+      <button class="cam-dl-btn" onclick="downloadSpecSheet()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1v8M4 6l3 3 3-3M2 10v2a1 1 0 001 1h8a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        DOWNLOAD SPEC SHEET
+      </button>
+      <div class="cam-dl-note" id="camDlNote">SAVES AS HTML · PRINT TO PDF FOR BEST RESULTS</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────
+   IMAGE HELPER
+───────────────────────────────────────────── */
+function camImgPath(id, n){
+  return `./images/cameras/${id}-${n}.png`;
+}
+
+const DATA={
+  AK:{
+    name:'AK SERIES',
+    eyebrow:'SERIES 01',
+    sub:'Entry-level Full HD 2MP network cameras with Full Color smart night vision, built-in microphone, and IP67 weatherproof protection. Easy PoE installation for reliable day and night monitoring.',
+    models:[
+      {
+        id:'AK-C321N-28',
+        name:'TC-C321N 1ANB-28',
+        badge:'BULLET',
+        line:'2MP Full Color Bullet Camera — 2.8mm',
+        desc:'The TC-C321N 1ANB-28 delivers reliable Full HD surveillance with Full Color night vision via dual IR + white LEDs. A fixed 2.8mm lens covers wide areas (102.7° diagonal) with crisp clarity. IP67-rated and PoE-powered for hassle-free outdoor installation.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',    u:'1080P'},
+          {k:'LENS',       v:'2.8mm',  u:'F1.6'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'2.5W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — dual Smart IR(30m) + white LEDs (15m)',
+          'Wide 102.7° diagonal field of view at 2.8mm focal length',
+          'Built-in microphone with G.711 audio compression',
+          'IP67 weatherproof + Surge 4000V / ESD 6000V protection',
+          'S+265 / H.265 / H.264 compression — 32k–4Mbps bit rate',
+          'ONVIF Profile S/T, SDK, CGI & Milestone compatible'
+        ]
+      },
+      {
+        id:'AK-C321N-4',
+        name:'TC-C321N 1ANB-4',
+        badge:'BULLET',
+        line:'2MP Full Color Bullet Camera — 4mm',
+        desc:'The TC-C321N 1ANB-4 shares the same robust Full Color platform as the 28 variant but with a 4mm lens for a tighter 87.1° diagonal field of view — ideal for longer corridors and focused entry-point monitoring. IP67 + PoE for easy outdoor deployment.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',    u:'1080P'},
+          {k:'LENS',       v:'4mm',    u:'F1.6'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'2.5W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — dual Smart IR(30m) + white LEDs (15m)',
+          'Narrower 87.1° diagonal FOV for corridor & entrance focus',
+          'DORI detect range up to 59.26m at 4mm focal length',
+          'Built-in microphone with G.711 audio compression',
+          'IP67 weatherproof + Surge 4000V / ESD 6000V protection',
+          'S+265 / H.265 / H.264 compression — 32k–4Mbps bit rate',
+          'ONVIF Profile S/T, SDK, CGI & Milestone compatible'
+        ]
+      },
+      {
+        id:'AK-C320N',
+        name:'TC-C320N 1ANB-28',
+        badge:'DOME',
+        line:'2MP Full Color Dome Camera — 2.8mm',
+        desc:'The TC-C320N is a compact mini dome offering 2MP Full HD Full Color night vision via smart IR auto-adjustment up to 30m. The low-profile form factor suits indoor ceilings and sheltered outdoor locations, with ONVIF compatibility for easy NVR integration.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',    u:'1080P'},
+          {k:'LENS',       v:'2.8mm',  u:'F2.0'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'2.5W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — IR-cut filter with auto Switch (ICR) 30m + white LEDs (15m)',
+          'Wide 90.7° diagonal field of view — covers large rooms',
+          'Built-in microphone with G.711A / G.711U audio compression',
+          '3D-DNR noise reduction for clean low-light footage',
+          'DWDR for balanced exposure in mixed lighting',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      }
+    ]
+  },
+
+  SK:{
+    name:'SK SERIES',
+    eyebrow:'SERIES 02',
+    sub:'SMB-grade network cameras combining smart AI analytics, Full Color night vision, and easy PoE management — designed for small and medium business deployments with human/vehicle detection.',
+    models:[
+      {
+        id:'TC-C32QN-2ENA-4',
+        name:'TC-C32QN 2ENA-4',
+        badge:'BULLET',
+        line:'2MP Full Color Bullet — 4mm',
+        desc:'A 2MP Full HD IP bullet camera with Smart IR night vision up to 30m, human/vehicle detection, built-in microphone, PoE support, and IP67 weatherproof protection for reliable indoor and outdoor surveillance.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',   u:'1080P'},
+          {k:'LENS',       v:'4mm',   u:'F1.6'},
+          {k:'IR RANGE',   v:'30',    u:'M'},
+          {k:'WDR',        v:'DWDR',  u:''},
+          {k:'WHITE LIGHT',v:'15',    u:'M'},
+          {k:'POWER',      v:'PoE',   u:'3W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — Smart IR 30m + white LEDs 15m',
+          'FOV: 75.3°(H) × 39.9°(V) × 87.1°(D) — focused coverage for entrances',
+          'Smart Alarm: human and vehicle detection',
+          'DORI: Detect 57.1m / Observe 22.6m / Recognize 11.4m / Identify 5.7m',
+          'Built-in microphone — G.711A/G.711U audio compression',
+          '4000V Surge / ESD 6000V protection, IP67 weatherproof',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      },
+      {
+        id:'TC-C34QN-2ENA-28',
+        name:'TC-C34QN 2ENA-28',
+        badge:'BULLET',
+        line:'4MP Full Color Bullet — 2.8mm',
+        desc:'A 4MP Full HD IP bullet camera with Smart IR night vision up to 30m, smart alarm for human/vehicle detection, built-in microphone, PoE support, and IP67 weatherproof protection for reliable indoor and outdoor surveillance.',
+        specs:[
+          {k:'RESOLUTION', v:'4MP',    u:'2560×1440'},
+          {k:'LENS',       v:'2.8mm',  u:'F1.6'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'4W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — Smart IR 30m + white LEDs 15m',
+          'Wide FOV: 91.5°(H) × 51.2°(V) × 103.6°(D)',
+          'Smart Alarm: human and vehicle detection',
+          'DORI: Detect 56m / Observe 22.2m / Recognize 11.2m / Identify 5.6m',
+          'Built-in microphone — G.711A/G.711U audio compression',
+          '4000V Surge / ESD 6000V protection, IP67 weatherproof',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      },
+      {
+        id:'TC-C34QN-2ENA-4',
+        name:'TC-C34QN 2ENA-4',
+        badge:'BULLET',
+        line:'4MP Full Color Bullet — 4mm',
+        desc:'A 4MP Full HD IP bullet camera with 4mm lens for tighter framing. Smart IR night vision up to 30m, human/vehicle detection, built-in microphone, PoE support, and IP67 weatherproof protection.',
+        specs:[
+          {k:'RESOLUTION', v:'4MP',    u:'2560×1440'},
+          {k:'LENS',       v:'4mm',    u:'F1.6'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'4W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — Smart IR 30m + white LEDs 15m',
+          'FOV: 79°(H) × 42.2°(V) × 91°(D) — ideal for corridors & entrances',
+          'Smart Alarm: human and vehicle detection',
+          'DORI: Detect 80m / Observe 31.8m / Recognize 16m / Identify 8m',
+          'Built-in microphone — G.711A/G.711U audio compression',
+          '4000V Surge / ESD 6000V protection, IP67 weatherproof',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      },
+      {
+        id:'TC-C32XN-2ENA-28',
+        name:'TC-C32XN 2ENA-28',
+        badge:'DOME',
+        line:'2MP Full Color Dome — 2.8mm',
+        desc:'A compact 2MP dome with Smart IR night vision up to 30m, human/vehicle detection, wide 102.7° diagonal FOV, and built-in microphone. Vandal-resistant form factor for ceilings and indoor spaces. PoE powered.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',    u:'1080P'},
+          {k:'LENS',       v:'2.8mm',  u:'F1.6'},
+          {k:'IR RANGE',   v:'30',     u:'M'},
+          {k:'WDR',        v:'DWDR',   u:''},
+          {k:'WHITE LIGHT',v:'15',     u:'M'},
+          {k:'POWER',      v:'PoE',    u:'3W'}
+        ],
+        feats:[
+          'Full Color 0.02Lux night vision — Smart IR 30m + white LEDs 15m',
+          'Wide FOV: 90.7°(H) × 50.9°(V) × 102.7°(D)',
+          'Smart Alarm: human and vehicle detection',
+          'DORI: Detect 40m / Observe 15.9m / Recognize 8m / Identify 4m',
+          'Built-in microphone — G.711A/G.711U audio compression',
+          'Angle adjustment: 340°(P) × 75°(T) × 360°(R)',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      },
+      {
+        id: 'TC-C34XN-2ENA-28',
+        name: 'TC-C34XN 2ENA-28',
+        badge: 'DOME',
+        line: '4MP Smart IR Dome — 2.8mm',
+        desc: 'A 4MP Full HD IP dome camera with 2.8mm lens, Smart IR up to 30m, white light up to 15m, built-in microphone, human/vehicle detection, and IP66 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2560×1440' },
+          { k: 'LENS', v: '2.8mm', u: 'F1.6' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'WDR', v: 'DWDR', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE', u: '4W' }
+        ],
+        feats: [
+          'Smart IR night vision up to 30m with IR-cut auto switch (ICR)',
+          'White light support up to 15m for improved low-light visibility',
+          'Wide FOV: 91.5°(H) × 51.2°(V) × 103.6°(D)',
+          'AI Smart Alarm: human and vehicle detection',
+          'DORI: Detect 56m / Observe 22.2m / Recognize 11.2m / Identify 5.6m',
+          'Built-in microphone with G.711A/G.711U audio compression',
+          'IP66 protection with 4000V surge and 6000V ESD resistance',
+          'ONVIF Profile S/T + SDK/CGI/Milestone compatibility'
+        ]
+      },
+      {
+        id: 'TC-C32WS-3LRA-28',
+        name: 'TC-C32WS 3LRA-28',
+        badge: 'BULLET',
+        line: '2MP Smart IR Bullet — 2.8mm',
+        desc: 'A 2MP Full HD IP bullet camera with 2.8mm wide-angle lens, Smart IR up to 50m, white light support, built-in microphone, AI human/vehicle detection, and IP67 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '2MP', u: '1920×1080' },
+          { k: 'LENS', v: '2.8mm', u: 'F1.6' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤7W' }
+        ],
+        feats: [
+          'Smart IR night vision up to 50m with dual IR LEDs',
+          'White light support up to 15m for full-color assistance',
+          'Wide FOV: 100.3°(H) × 54.5°(V) × 116.1°(D) for broad coverage',
+          'AI analytics: human and vehicle classification, tripwire, perimeter protection',
+          'DORI: Detect 38.6m / Observe 15.3m / Recognize 7.7m / Identify 3.8m',
+          'Built-in microphone with G.711A/G.711U/ADPCM audio compression',
+          'IP67 protection with 4000V surge and 6000V ESD resistance',
+          'ONVIF Profile S/T/G + SDK/CGI/Milestone compatibility'
+        ]
+      },
+      {
+        id:'TC-C34KN-varifocal',
+        name:'TC-C34KN I3/A/E/2.8-12mm',
+        badge:'VARIFOCAL',
+        line:'4MP Varifocal Bullet — 2.8–12mm',
+        desc:'A 4MP varifocal bullet camera with a 2.8–12mm motorized-range lens for flexible installation. Smart IR night vision up to 30m, IP66 protection, and PoE/DC12V dual power for versatile SMB deployments.',
+        specs:[
+          {k:'RESOLUTION', v:'4MP',      u:'2688×1520'},
+          {k:'LENS',       v:'2.8-12mm', u:'VARIFOCAL'},
+          {k:'IR RANGE',   v:'30',       u:'M'},
+          {k:'RATING',     v:'IP66',     u:''},
+          {k:'STORAGE',    v:'512',      u:'GB SD'},
+          {k:'POWER',      v:'PoE/DC12', u:'7W'}
+        ],
+        feats:[
+          '4MP 2688×1520 @ 25fps — S+265/H.265/H.264 compression',
+          'Full Color 0.02Lux night vision with Smart IR up to 30m',
+          'Flexible 2.8–12mm varifocal lens for adjustable field of view',
+          'IP66 weatherproof plastic housing — outdoor ready',
+          'On-board microSD/SDXC storage up to 512GB',
+          'Operating temperature: -30°C to 60°C',
+          'PoE IEEE 802.3af (max 7W) or DC12V power supply'
+        ]
+      },
+      {
+        id:'TC-C34KS-2CTB-2812',
+        name:'TC-C34KS 2CTB-2812',
+        badge:'MOTORIZED',
+        line:'4MP Motorized Zoom Dome — 2.8–12mm',
+        desc:'A 4MP motorized zoom dome with remote-focus 2.8–12mm lens, TWDR 120dB, IK08 impact resistance, and advanced ONVIF Profile S/T/G support. Features ANR, on-board SD storage, and built-in microphone for comprehensive SMB surveillance.',
+        specs:[
+          {k:'RESOLUTION', v:'4MP',      u:'2560×1440'},
+          {k:'LENS',       v:'2.8-12mm', u:'MOTORIZED'},
+          {k:'IR RANGE',   v:'30',       u:'M'},
+          {k:'WDR',        v:'TWDR',     u:''},
+          {k:'RATING',     v:'IP67',     u:'IK08'},
+          {k:'POWER',      v:'PoE/DC12', u:'6.5W'}
+        ],
+        feats:[
+          'Motorized 2.8–12mm lens — remote zoom & focus via VMS/web',
+          'TWDR for extreme contrast scenes — S/N ratio >42dB',
+          '0.002Lux color sensitivity — superior low-light performance',
+          'DORI: Detect 56m / Observe 22.2m / Recognize 11.2m / Identify 5.6m',
+          'On-board microSD up to 512GB + ANR automatic network recovery',
+          'ONVIF Profile S/T/G + P2P, SDK, CGI, Milestone',
+          'IK08 vandal resistance + IP67 weatherproof + Surge 4000V / ESD 6000V'
+        ]
+      },
+      {
+        id:'TC-C32QV-2FNA-28',
+        name:'TC-C32QV 2FNA-28',
+        badge:'FULL COLOR',
+        line:'2MP Ultra Low-Light Bullet — 2.8mm',
+        desc:'The TC-C32QV features a 1/2.9" CMOS with F1.0 aperture for 0.0002Lux ultra low-light Full Color performance — no IR required. Wide 116.3° diagonal FOV, WDR, and IP67 weatherproof for day-to-night color surveillance.',
+        specs:[
+          {k:'RESOLUTION', v:'2MP',     u:'1080P'},
+          {k:'LENS',       v:'2.8mm',   u:'F1.0'},
+          {k:'MIN LUX',    v:'0.0002',  u:'LUX'},
+          {k:'WDR',        v:'WDR',     u:''},
+          {k:'WHITE LIGHT',v:'15',      u:'M'},
+          {k:'POWER',      v:'PoE/DC12',u:'6W'}
+        ],
+        feats:[
+          '0.0002Lux color sensitivity — F1.0 aperture for extreme low-light',
+          'Always-on Full Color — no IR switching, pure color night vision',
+          'Ultra-wide 99°(H) × 53.4°(V) × 116.3°(D) field of view',
+          'WDR (not DWDR) for true wide dynamic range in challenging scenes',
+          'Smart Alarm: human and vehicle detection',
+          'IP67 weatherproof + Surge 4000V / ESD 6000V protection',
+          'ONVIF Profile S/T + SDK / CGI / Milestone compatible'
+        ]
+      },
+      {
+        id: 'TC-C34UV-3FRB-4',
+        name: 'TC-C34UV 3FRB-4',
+        badge: 'BULLET',
+        line: '4MP Full Color Bullet — 4mm',
+        desc: 'A 4MP full-color IP bullet camera with 4mm lens, ultra-low light performance, built-in microphone, smart human/vehicle detection, microSD storage support, and IP67 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2688×1520' },
+          { k: 'LENS', v: '4mm', u: 'F1.0' },
+          { k: 'NIGHT VISION', v: 'Full Color', u: '0.0001Lux' },
+          { k: 'COMPRESSION', v: 'H.265', u: 'S+265' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤9.6W' }
+        ],
+        feats: [
+          'Ultra low-light full-color imaging with 0.0001Lux sensitivity',
+          '4MP resolution up to 2688×1520@25fps for sharp video quality',
+          'Smart surveillance with human and vehicle classification',
+          'Built-in microphone for real-time audio recording',
+          'Supports microSD/microSDHC/microSDXC cards up to 512GB',
+          'Metal + plastic housing with durable IP67 weatherproof design',
+          'Supports S+265 / H.265 / H.264 compression technologies',
+          '4000V surge protection and reliable outdoor operation'
+        ]
+      },
+      {
+        id: 'TC-C35XS-I3W-E-Y-S-28-V50',
+        name: 'TC-C35XS Spec:I3W/E/Y/S/2.8mm/V5.0',
+        badge: 'BULLET',
+        line: '5MP Smart IR Bullet — 2.8mm',
+        desc: 'A 5MP ultra-clear IP bullet camera with 2.8mm wide-angle lens, Smart IR up to 30m, AI human and vehicle detection, built-in microphone, microSD storage support, and IP66 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '5MP', u: '2880×1620' },
+          { k: 'LENS', v: '2.8mm', u: 'F1.6' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤5W' }
+        ],
+        feats: [
+          '5MP ultra HD video up to 2880×1620@30fps',
+          'Smart IR night vision up to 30m with dual IR LEDs',
+          'Wide FOV: 109°(H) × 59°(V) × 125.4°(D) for large area coverage',
+          'AI analytics: human/vehicle classification, tripwire, and perimeter protection',
+          'DORI: Detect 56m / Observe 22m / Recognize 11m / Identify 5.6m',
+          'Built-in microphone with G.711A/G.711U/ADPCM_D audio support',
+          'Supports microSD cards up to 512GB for onboard storage',
+          'IP66 weatherproof with 4000V surge and 6000V ESD protection'
+        ]
+      },
+      {
+        id: 'TC-C35US-LK-I5W-E-Y-M-S-28-V50',
+        name: 'TC-C35US Spec:LK/I5W/E/Y/M/S/2.8mm/V5.0',
+        badge: 'BULLET',
+        line: '5MP Smart IR Bullet — 2.8mm',
+        desc: 'A 5MP ultra HD IP bullet camera with 2.8mm wide-angle lens, Smart IR up to 50m, AI human and vehicle detection, built-in microphone, onboard storage support, and IP67 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '5MP', u: '2880×1620' },
+          { k: 'LENS', v: '2.8mm', u: 'F1.6' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤9W' }
+        ],
+        feats: [
+          '5MP ultra HD video up to 2880×1620@30fps',
+          'Smart IR night vision up to 50m with 4 IR LEDs',
+          'Wide FOV: 109°(H) × 59°(V) × 125.4°(D) for large-area monitoring',
+          'AI analytics: human/vehicle classification, tripwire, and perimeter protection',
+          'DORI: Detect 56m / Observe 22m / Recognize 11m / Identify 5.6m',
+          'Built-in microphone with G.711A/G.711U/ADPCM_D audio support',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'IP67 weatherproof with 4000V surge and 6000V ESD protection'
+        ]
+      },
+      {
+        id:'TC-C38XS-3LRA-28',
+        name:'TC-C38XS 3LRA-28',
+        badge:'8MP DOME',
+        line:'8MP 4K Full Color Dome — 2.8mm',
+        desc:'The TC-C38XS 3LRA-28 is a premium 8MP 4K dome camera delivering ultra-sharp 3840×2160 imagery with true 120dB WDR and Full Color night vision via dual Smart IR (30m) + white LEDs (15m). A fixed 2.8mm F1.6 lens provides a wide 113° diagonal FOV. Advanced video analytics — human/vehicle classification, tripwire, perimeter — with 8 rules per scene. IP67 rated with ANR and on-board microSD up to 512GB.',
+        specs:[
+          {k:'RESOLUTION', v:'8MP',      u:'4K 3840×2160'},
+          {k:'LENS',       v:'2.8mm',    u:'F1.6'},
+          {k:'IR RANGE',   v:'30',       u:'M'},
+          {k:'WDR',        v:'120dB',    u:'TRUE WDR'},
+          {k:'WHITE LIGHT',v:'15',       u:'M'},
+          {k:'POWER',      v:'PoE/DC12', u:'8.5W'}
+        ],
+        feats:[
+          '8MP 4K resolution — 3840×2160@20fps / 2560×1440@25fps main stream',
+          'Full Color 0.002Lux night vision — Smart IR 30m (850nm) + white LEDs 15m',
+          'Ultra-wide 100.5°(H) × 56.5°(V) × 113.0°(D) field of view',
+          'DORI: Detect 77m / Observe 30.5m / Recognize 15.5m / Identify 7.5m',
+          'True 120dB WDR + 3D-DNR + HLC + BLC + Defog for demanding scenes',
+          'Video Analytics: Human/Vehicle Classification, Tripwire, Perimeter — 8 rules/scene',
+          'ANR + on-board microSD up to 512GB + built-in microphone',
+          'IP67 + Surge 4000V / ESD 6000V — operating range −35°C to 65°C',
+          'ONVIF Profile S/T/G/M + P2P, SDK, CGI, Milestone compatible'
+        ]
+      },
+      {
+        id: 'TC-C38WS-3LRA-28',
+        name: 'TC-C38WS 3LRA-28',
+        badge: 'BULLET',
+        line: '8MP Smart IR Bullet — 2.8mm',
+        desc: 'An 8MP ultra HD IP bullet camera with 2.8mm wide-angle lens, Smart IR up to 50m, AI human and vehicle detection, built-in microphone, advanced analytics, and IP67 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '8MP', u: '3840×2160' },
+          { k: 'LENS', v: '2.8mm', u: 'F1.6' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤8W' }
+        ],
+        feats: [
+          '8MP ultra HD video up to 3840×2160 resolution',
+          'Smart IR night vision up to 50m with dual IR LEDs',
+          'Wide FOV: 100.5°(H) × 56.5°(V) × 113.0°(D) for broad area monitoring',
+          'AI analytics: human/vehicle classification, tripwire, and perimeter protection',
+          'DORI: Detect 77m / Observe 30.5m / Recognize 15.5m / Identify 7.5m',
+          'Built-in microphone with AAC_LC, G.711A/G.711U, and ADPCM_D audio support',
+          'Supports microSD cards up to 512GB for onboard storage',
+          'IP67 weatherproof with 4000V surge and 6000V ESD protection'
+        ]
+      },
+      {
+        id: 'TC-C35VN-I3-E-Y-14-V42',
+        name: 'TC-C35VN Spec:I3/E/Y/1.4mm/V4.2',
+        badge: 'FISHEYE',
+        line: '5MP 180° Panoramic Fisheye — 1.4mm',
+        desc: 'A 5MP panoramic fisheye IP camera with 180° ultra-wide viewing angle, Smart IR up to 30m, built-in microphone, advanced analytics, and onboard storage support for wide-area surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '5MP', u: '2592×1944' },
+          { k: 'LENS', v: '1.4mm', u: 'F2.0' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'FOV', v: '180°', u: 'Panoramic' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤9.5W' }
+        ],
+        feats: [
+          '180° panoramic fisheye coverage for maximum area visibility',
+          '5MP ultra-wide video up to 2592×1944@30fps',
+          'Smart IR night vision up to 30m with 3 IR LEDs',
+          'Advanced analytics: tripwire, double tripwire, perimeter, and heatmap',
+          'DORI: Detect 24m / Observe 9m / Recognize 4.8m / Identify 2.5m',
+          'Built-in microphone with AAC_LC, G.711A/G.711U, and ADPCM_D audio support',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'Alarm I/O and Audio I/O support for advanced integration'
+        ]
+      },
+      {
+        id: 'TC-C32KN-I3-A-E-Y-2812-V42-BG',
+        name: 'TC-C32KN Spec:I3/A/E/Y/2.8-12mm/V4.2/BG',
+        badge: 'DOME',
+        line: '2MP Motorized IR Dome — 2.8-12mm',
+        desc: 'A 2MP motorized IR dome IP camera with adjustable 2.8-12mm lens, Smart IR up to 30m, built-in microphone, onboard storage support, and IP66 weatherproof protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '2MP', u: '1920×1080' },
+          { k: 'LENS', v: '2.8-12mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'COMPRESSION', v: 'H.265', u: 'S+265' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤7W' }
+        ],
+        feats: [
+          'Motorized 2.8-12mm lens for flexible zoom and viewing angle adjustment',
+          '2MP Full HD video up to 1920×1080@30fps',
+          'Smart IR night vision up to 30m',
+          'Built-in microphone for real-time audio monitoring',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'Efficient S+265 / H.265 / H.264 video compression support',
+          'IP66 weatherproof protection for indoor and outdoor use',
+          'Supports PoE and DC12V power options'
+        ]
+      },
+      {
+        id: 'TC-C34UN-I8-A-E-2812-VJ042',
+        name: 'TC-C34UN Spec:I8/A/E/2.8-12mm/VJO4.2',
+        badge: 'BULLET',
+        line: '4MP Motorized IR Bullet — 2.8-12mm',
+        desc: 'A 4MP motorized IR bullet IP camera with adjustable 2.8-12mm lens, long-range IR up to 80m, onboard storage support, and rugged IP67 + IK10 protection for demanding surveillance environments.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2688×1520' },
+          { k: 'LENS', v: '2.8-12mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '80', u: 'M' },
+          { k: 'NIGHT VISION', v: '0.02Lux', u: 'F1.6' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤7W' }
+        ],
+        feats: [
+          'Motorized 2.8-12mm lens for adjustable zoom and flexible monitoring',
+          '4MP ultra-clear video up to 2688×1520@25fps',
+          'Long-range Smart IR night vision up to 80m',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'Advanced S+265 / H.265 / H.264 compression technologies',
+          'Durable metal + plastic housing for indoor and outdoor deployment',
+          'IP67 weatherproof and IK10 vandal-resistant protection',
+          'Supports PoE and DC12V power input'
+        ]
+      },
+      {
+        id: 'TC-C34KN-I3-A-E-2812-VJ042',
+        name: 'TC-C34KN Spec:I3/A/E/2.8-12mm/VJO4.2',
+        badge: 'DOME',
+        line: '4MP Motorized IR Dome — 2.8-12mm',
+        desc: 'A 4MP motorized IR dome IP camera with adjustable 2.8-12mm lens, Smart IR up to 30m, onboard storage support, and IP66 weatherproof protection for flexible indoor and outdoor surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2688×1520' },
+          { k: 'LENS', v: '2.8-12mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'NIGHT VISION', v: '0.02Lux', u: 'F1.6' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤7W' }
+        ],
+        feats: [
+          'Motorized 2.8-12mm lens for adjustable zoom and viewing flexibility',
+          '4MP ultra-clear video up to 2688×1520@25fps',
+          'Smart IR night vision up to 30m',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'Efficient S+265 / H.265 / H.264 video compression support',
+          'Compact plastic housing suitable for indoor and outdoor use',
+          'IP66 weatherproof protection for reliable operation',
+          'Supports PoE and DC12V power input'
+        ]
+      },
+      {
+        id: 'TC-C35MS-3LHA-27135',
+        name: 'TC-C35MS 3LHA-27135',
+        badge: 'DOME',
+        line: '5MP Motorized Color Maker Dome — 2.7-13.5mm',
+        desc: 'A 5MP motorized Color Maker dome camera with 2.7-13.5mm zoom lens, Smart IR up to 30m, AI human and vehicle detection, built-in microphone, and rugged IP67 + IK10 protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '5MP', u: '3072×1728' },
+          { k: 'LENS', v: '2.7-13.5mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '10', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤8W' }
+        ],
+        feats: [
+          'Motorized 2.7-13.5mm lens for flexible zoom and long-range monitoring',
+          '5MP ultra HD video up to 3072×1728@30fps',
+          'Smart IR night vision up to 30m with 18 IR LEDs',
+          'Color Maker technology with white light support up to 10m',
+          'AI analytics: human/vehicle classification, tripwire, and perimeter protection',
+          'DORI: Detect 56m~240m / Observe 22m~95m / Recognize 11m~48m / Identify 5.6m~24m',
+          'Built-in microphone with audio and alarm I/O support',
+          'IP67 weatherproof and IK10 vandal-resistant protection'
+        ]
+      },
+      {
+        id: 'TC-C38MS-3LHA-27135',
+        name: 'TC-C38MS 3LHA-27135',
+        badge: 'DOME',
+        line: '8MP Motorized Color Maker Dome — 2.7-13.5mm',
+        desc: 'An 8MP motorized Color Maker dome camera with 2.7-13.5mm zoom lens, Smart IR up to 50m, AI human and vehicle detection, built-in microphone, and rugged IP67 + IK10 protection for advanced surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '8MP', u: '3840×2160' },
+          { k: 'LENS', v: '2.7-13.5mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤9W' }
+        ],
+        feats: [
+          'Motorized 2.7-13.5mm lens for flexible zoom and long-range coverage',
+          '8MP ultra HD video up to 3840×2160 resolution',
+          'Smart IR night vision up to 50m with 18 IR LEDs',
+          'Color Maker technology with white light support up to 15m',
+          'AI analytics: human/vehicle classification, tripwire, and perimeter protection',
+          'DORI: Detect 77m~331m / Observe 30.5m~131m / Recognize 15.5m~66m / Identify 7.5m~33m',
+          'Built-in microphone with audio and alarm I/O support',
+          'IP67 weatherproof and IK10 vandal-resistant protection'
+        ]
+      },
+      {
+        id: 'TC-C345N-2MP-DUAL-PANORAMIC',
+        name: 'TC-C345N 2ANA-28',
+        badge: 'DUAL-PANORAMIC',
+        line: 'Dual-2MP Panoramic Bullet Camera',
+        desc: 'A dual-2MP panoramic bullet camera providing wide-angle surveillance with IR and white light illumination, AI human/vehicle detection, and 1080p high-definition output.',
+        specs: [
+          { k: 'RESOLUTION', v: '2MP', u: '1920×1080' },
+          { k: 'LENS', v: '2.8', u: 'MM' },
+          { k: 'FOV', v: '94.9', u: 'H DEG' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WHITE LIGHT', v: '30', u: 'M' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' }
+        ],
+        feats: [
+          'Dual 2MP panoramic bullet camera system',
+          'Full HD 1080p recording at 25fps',
+          'Wide 94.9° horizontal field of view',
+          'IR night vision up to 50m',
+          'White light illumination up to 30m',
+          'Smart AI detection for human and vehicle classification',
+          'Supports H.265 / H.264 compression formats',
+          'Built-in microphone for audio monitoring',
+          'IP67 weatherproof protection for outdoor use',
+          'Supports up to 512GB microSD storage'
+        ]
+      },
+      {
+        id: 'TC-C38RN-2ANA-28',
+        name: 'TC-C38RN 2ANA-28',
+        badge: 'OMNI',
+        line: '4MP Fixed Color Maker Omni Camera',
+        desc: 'A 4MP omni-directional fixed camera with dual illumination (IR + white light), wide coverage lens, AI human/vehicle detection, and strong low-light performance for perimeter surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2560×1440' },
+          { k: 'LENS', v: '2.8', u: 'MM' },
+          { k: 'FOV', v: '94.5', u: 'H DEG' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'WHITE LIGHT', v: '30', u: 'M' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' }
+        ],
+        feats: [
+          '4MP high-definition video up to 2560×1440@20fps',
+          'Omni-wide coverage fixed lens design',
+          'Dual illumination: IR + white light up to 50m / 30m',
+          'Smart AI detection for human and vehicle classification',
+          'Strong low-light performance with 0.02Lux sensitivity',
+          'Supports H.265 / H.264 compression formats',
+          'Built-in microphone for audio monitoring',
+          'IP67 weatherproof protection for outdoor environments',
+          'Supports microSD storage up to 512GB'
+        ]
+      }
+    ]
+  },
+
+  LK:{
+    name:'LK SERIES',
+    eyebrow:'SERIES 03',
+    sub:'Professional-grade network cameras with deep AI analytics, high-resolution imaging, and robust construction for demanding enterprise and city-surveillance deployments.',
+    models:[
+      {
+        id: 'TC-C35PS-I3-E-Y-M-H-28-V42',
+        name: 'TC-C35PS Spec:I3/E/Y/M/H/2.8mm/V4.2',
+        badge: 'DOME',
+        line: '5MP Fixed IR Dome — 2.8mm',
+        desc: 'A 5MP fixed IR dome IP camera with 2.8mm lens, Smart IR up to 30m, AI human/vehicle detection, face capture support, built-in microphone, and IP66 + IK08 protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '5MP', u: '2880×1620' },
+          { k: 'LENS', v: '2.8mm', u: 'Fixed' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'WDR', v: '120dB', u: '' },
+          { k: 'WHITE LIGHT', v: '—', u: '' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤8W' }
+        ],
+        feats: [
+          '5MP high-definition video up to 2880×1620@30fps',
+          'Smart IR night vision up to 30m with 2 IR LEDs',
+          'Wide FOV: 109°(H) × 59°(V) × 125.4°(D) for indoor/outdoor coverage',
+          'Advanced AI analytics: human/vehicle classification, tripwire, perimeter, video/audio anomaly detection',
+          'Face capture mode with detection of up to 8 faces and capture of 4 faces simultaneously',
+          'Built-in microphone with multi-format audio compression support',
+          'Supports microSD cards up to 512GB for onboard recording',
+          'IP66 weatherproof and IK08 impact-resistant housing'
+        ]
+      },
+      {
+        id: 'TC-C382V-W-E-Y-S-H-28',
+        name: 'TC-C382V Spec:W/E/Y/S/H/2.8mm',
+        badge: 'PANORAMIC',
+        line: '8MP Fixed Polar Day Panoramic — 2.8mm',
+        desc: 'An 8MP dual-sensor panoramic camera with 180° wide coverage, ultra-low-light performance, white light illumination, and AI analytics for human/vehicle detection and perimeter protection.',
+        specs: [
+          { k: 'RESOLUTION', v: '8MP', u: '4640×1728' },
+          { k: 'LENS', v: '2.8mm', u: 'Fixed' },
+          { k: 'FOV', v: '180°', u: '±10°' },
+          { k: 'ILLUMINATION', v: '0.0001Lux', u: 'F1.0' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤12W' }
+        ],
+        feats: [
+          'Dual 1/2.7" CMOS sensors delivering 180° panoramic coverage',
+          '8MP ultra-wide resolution up to 4640×1728@25fps',
+          'Ultra-low-light performance down to 0.0001Lux for near-dark environments',
+          'Built-in white light illumination up to 15m for full-color night vision',
+          'Advanced AI analytics: human/vehicle classification, tripwire, perimeter, audio/video anomaly detection',
+          'Supports early warning (EW) system for proactive security alerts',
+          'DORI: Detect 56m / Observe 22m / Recognize 11m / Identify 5.6m',
+          'Built-in microphone and speaker for two-way audio communication',
+          'IP67 weatherproof protection for outdoor deployment'
+        ]
+      },
+      {
+        id: 'TC-C34LQ-LK-I3W-A-E-Y-M-S-H-LPR-832',
+        name: 'TC-C34LQ Spec:LK/I3W/A/E/Y/M/S/H/LPR/8-32mm',
+        badge: 'LPR',
+        line: '4MP Motorized Color Maker LPR Bullet — 8-32mm',
+        desc: 'A 4MP motorized LPR (License Plate Recognition) bullet camera with 8–32mm zoom lens, long-range IR up to 60m, white light up to 60m, and advanced AI analytics for traffic and security monitoring.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2688×1520' },
+          { k: 'LENS', v: '8-32mm', u: 'Motorized' },
+          { k: 'IR RANGE', v: '60', u: 'M' },
+          { k: 'WHITE LIGHT', v: '60', u: 'M' },
+          { k: 'LOW LIGHT', v: '0.002Lux', u: 'F1.6' },
+          { k: 'POWER', v: 'PoE / DC12V', u: '≤15.5W' }
+        ],
+        feats: [
+          'Specialized LPR (License Plate Recognition) bullet camera for traffic and access control',
+          'Motorized 8–32mm lens for long-range zoom and precise targeting',
+          '4MP high-resolution imaging up to 2688×1520@30fps',
+          'Dual illumination: IR up to 60m + white light up to 60m for full-color night capture',
+          'Advanced AI analytics: human/vehicle classification, traffic monitoring, behavior detection, and crowd analysis',
+          'Wide DORI range up to Detect 441m for long-distance surveillance',
+          'Supports advanced alarm and linkage actions (email, sound, recording, surveillance alerts)',
+          'Built-in audio I/O, speaker, and microphone for interactive monitoring',
+          'IP67 weatherproof protection for outdoor enforcement environments'
+        ]
+      }
+    ]
+  },
+
+  Tian:{
+    name:'TIAN SERIES',
+    eyebrow:'SERIES 04',
+    sub:'Wi-Fi network cameras for flexible, quick-deploy residential and light commercial surveillance — no cabling required.',
+    models:[
+      {
+        id: 'TC-H332A-9DA-4',
+        name: 'TC-H332A 9DA-4',
+        badge: 'PT',
+        line: '3MP Fixed Color Maker Wi-Fi PT Camera',
+        desc: 'A 3MP Wi-Fi PT camera with Color Maker technology, auto-tracking, built-in audio, and smart IR/white light for indoor smart surveillance with wireless connectivity.',
+        specs: [
+          { k: 'RESOLUTION', v: '3MP', u: '2304×1296' },
+          { k: 'LENS', v: '4mm', u: 'Fixed' },
+          { k: 'IR RANGE', v: '15', u: 'M' },
+          { k: 'WHITE LIGHT', v: '10', u: 'M' },
+          { k: 'WiFi', v: '2.4GHz', u: 'IEEE 802.11 b/g/n' },
+          { k: 'POWER', v: 'USB Type-C', u: '5V / ≤7W' }
+        ],
+        feats: [
+          '3MP HD video up to 2304×1296 resolution',
+          'Wi-Fi connectivity with up to 30m wireless transmission range',
+          'Pan & Tilt control with 255 presets for flexible monitoring',
+          'Auto-tracking for moving human targets',
+          'Smart IR night vision up to 15m + white light up to 10m',
+          'Two-way audio with built-in microphone and speaker',
+          'Supports microSD storage up to 256GB',
+          'Smart alarm features with sound, recording, and notification triggers',
+          'Compact indoor design powered via USB Type-C'
+        ]
+      },
+      {
+        id: 'TC-H332N-9DB-4',
+        name: 'TC-H332N 9DB-4',
+        badge: 'PT',
+        line: '3MP Fixed Color Maker Wi-Fi PT Camera',
+        desc: 'A 3MP Wi-Fi PT camera with Color Maker imaging, auto-tracking, built-in audio, and smart IR/white light for indoor smart surveillance and remote monitoring.',
+        specs: [
+          { k: 'RESOLUTION', v: '3MP', u: '2304×1296' },
+          { k: 'LENS', v: '4mm', u: 'Fixed' },
+          { k: 'IR RANGE', v: '15', u: 'M' },
+          { k: 'WHITE LIGHT', v: '10', u: 'M' },
+          { k: 'WiFi', v: '2.4GHz', u: 'IEEE 802.11 b/g/n' },
+          { k: 'POWER', v: 'USB Type-C', u: '5V / ≤7W' }
+        ],
+        feats: [
+          '3MP HD video up to 2304×1296 resolution',
+          'Wi-Fi connectivity with stable transmission up to 30m',
+          'Pan & tilt control with 255 preset positions',
+          'Auto-tracking for moving human targets',
+          'Smart IR night vision up to 15m + white light up to 10m',
+          'Two-way audio with built-in microphone and speaker',
+          'Supports microSD storage up to 256GB',
+          'Smart alarm with sound, recording, and capture triggers',
+          'Compact indoor PT design with easy setup via Wi-Fi'
+        ]
+      },
+      {
+        id: 'TC-H333K-AK-I5W-WIFI-EU-4MM',
+        name: 'TC-H333K Spec:AK/I5W/WIFI/Eu/4mm',
+        badge: 'PT',
+        line: '3MP Fixed IR Wi-Fi PT Camera — 4mm',
+        desc: 'A 3MP Wi-Fi PT camera with 4mm lens, IR night vision up to 50m, built-in audio, and smart surveillance features designed for indoor/outdoor flexible monitoring.',
+        specs: [
+          { k: 'RESOLUTION', v: '3MP', u: '2304×1296' },
+          { k: 'LENS', v: '4mm', u: 'Fixed' },
+          { k: 'IR RANGE', v: '50', u: 'M' },
+          { k: 'COMPRESSION', v: 'H.265', u: 'S+265' },
+          { k: 'STORAGE', v: 'microSD', u: '256GB' },
+          { k: 'POWER', v: 'DC12V', u: '≤12W' }
+        ],
+        feats: [
+          '3MP HD video up to 2304×1296@20fps',
+          'Smart IR night vision up to 50m for low-light environments',
+          'Supports multiple video compression formats including S+265 / H.265 / H.264',
+          'Built-in microphone and loudspeaker for two-way audio communication',
+          'Supports microSD cards up to 256GB for local storage',
+          'Wide operating range -30°C to 60°C for harsh environments',
+          'IP66 weatherproof protection for outdoor installation',
+          'Wi-Fi-enabled PT functionality for flexible remote monitoring'
+        ]
+      }
+    ]
+  },
+    '4G camera':{
+      name:'4G SERIES',
+      eyebrow:'SERIES 06',
+      sub:'Smart 4G pan-tilt cameras featuring auto-tracking, two-way audio, active deterrence alarms, and flexible remote monitoring for homes, offices, and small businesses.',
+      models:[
+        {
+          id: 'TC-H363N 9DB-4',
+          name: 'TC-H363N 9DB-4',
+          badge: '4G SOLAR',
+          line: 'Dual 3MP Auto-Tracking Solar Camera',
+          desc: 'A dual-lens 4G solar security camera with panoramic and detail views, AI human and vehicle detection, auto-tracking, two-way audio, and red-blue alarm warning lights for remote outdoor surveillance.',
+
+          specs: [
+            { k: 'RESOLUTION', v: '3MP+3MP', u: '2304×1296' },
+            { k: 'LENS', v: '4mm', u: 'Dual Lens' },
+            { k: 'IR RANGE', v: '30', u: 'M' },
+            { k: 'WHITE LIGHT', v: '20', u: 'M' },
+            { k: 'STORAGE', v: 'microSD', u: '256GB' },
+            { k: 'CONNECTIVITY', v: '4G', u: 'SIM' }
+          ],
+
+          feats: [
+            'Dual 3MP CMOS sensors for panorama and detail monitoring',
+            'Maximum resolution up to 2304×1296@20fps',
+            'Smart human and vehicle detection',
+            'AI auto-tracking of moving targets',
+            'Built-in microphone and loudspeaker for two-way communication',
+            'IR night vision up to 30m',
+            'White light illumination up to 20m',
+            'Red and blue alarm flash warning system',
+            'Supports S+265 and H.265 video compression',
+            'Supports microSD card storage up to 256GB',
+            '64 preset positions',
+            'Ultra-low-light performance down to 0.02Lux',
+            'Remote access through Easy7 VMS',
+            'IP65 weatherproof protection',
+            'Surge protection up to 500V and ESD protection up to 6000V',
+            'Ideal for farms, construction sites, remote properties, and off-grid monitoring'
+          ]
+        },
+        {
+        id: 'TC-H333D-9DB-4',
+        name: 'TC-H333D 9DB-4',
+        badge: 'PT',
+        line: '3MP Fixed Color Maker Wi-Fi PT Camera',
+        desc: 'A 3MP Wi-Fi PT camera with Color Maker imaging, auto-tracking, built-in audio, and red/blue alarm flash for active deterrence and indoor/outdoor smart surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '3MP', u: '2304×1296' },
+          { k: 'LENS', v: '4mm', u: 'Fixed' },
+          { k: 'IR RANGE', v: '30', u: 'M' },
+          { k: 'WHITE LIGHT', v: '15', u: 'M' },
+          { k: 'WiFi', v: '2.4GHz', u: 'IEEE 802.11 b/g/n' },
+          { k: 'POWER', v: 'DC12V', u: '≤12W' }
+        ],
+        feats: [
+          '3MP HD video up to 2304×1296 resolution',
+          'Wi-Fi connectivity with stable transmission up to 30m',
+          'Pan & tilt control with up to 255 presets for flexible viewing',
+          'Auto-tracking for human movement detection',
+          'Red & blue alarm flash for active intrusion deterrence',
+          'Smart IR night vision up to 30m + white light up to 15m',
+          'Two-way audio with built-in microphone and speaker',
+          'Supports microSD storage up to 256GB',
+          'IP66 weatherproof protection suitable for outdoor deployment'
+        ]
+      },
+      ]
+    },
+  PTZ:{
+    name:'PTZ SERIES',
+    eyebrow:'SERIES 05',
+    sub:'Professional Pan-Tilt-Zoom cameras with powerful optical zoom, AI auto-tracking, and long-range coverage for large venues, traffic, and critical infrastructure.',
+    models:[
+      {
+        id: 'TC-H344S-25X-I-E-A-V30',
+        name: 'TC-H344S Spec:25X/I/E+/A/V3.0',
+        badge: 'PTZ',
+        line: '4MP 25X IR PTZ Camera',
+        desc: 'A 4MP PTZ camera with 25X optical zoom, long-range IR up to 150m, advanced face detection, and AI human/vehicle classification for large-area surveillance.',
+        specs: [
+          { k: 'RESOLUTION', v: '4MP', u: '2688×1520' },
+          { k: 'OPTICAL ZOOM', v: '25X', u: '' },
+          { k: 'IR RANGE', v: '150', u: 'M' },
+          { k: 'LOW LIGHT', v: '0.003Lux', u: 'F1.5' },
+          { k: 'STORAGE', v: 'microSD', u: '512GB' },
+          { k: 'COMPRESSION', v: 'H.265', u: 'S+265' }
+        ],
+        feats: [
+          '4MP high-definition video up to 2688×1520@30fps',
+          'Powerful 25X optical zoom for long-distance monitoring',
+          'Long-range IR night vision up to 150m',
+          'Ultra-low-light performance down to 0.003Lux for color imaging',
+          'AI smart surveillance with human/vehicle classification',
+          'Face detection capability supporting up to 32 faces in a single scene',
+          'Supports multiple compression formats including S+265 / H.265 / H.264',
+          'Supports microSD card storage up to 512GB',
+          'Designed for wide-area security monitoring (streets, campuses, industrial sites)'
+        ]
+      }
+    ]
+  }
+};
+
+const SERIES_ORDER=['AK','SK','LK','Tian','PTZ'];
+let curS=null, curC=null, slideIdx=0, curImgIdx=1;
+let _curModelData=null;
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE VISIBLE CARDS
+───────────────────────────────────────────── */
+function getVisible(){
+  if(window.innerWidth<=600) return 1.2;
+  if(window.innerWidth<=900) return 2.2;
+  if(window.innerWidth>=3840) return 5;
+  if(window.innerWidth>=2560) return 4;
+  if(window.innerWidth>=1920) return 3.5;
+  return 3;
+}
+
+/* ─────────────────────────────────────────────
+   AUTO SLIDESHOW
+───────────────────────────────────────────── */
+let _slideTimer=null, _progressTimer=null;
+const SLIDE_DURATION=5000, PROGRESS_INTERVAL=100;
+let _progressElapsed=0, _currentSlideId=null;
+
+function startAutoSlide(id){
+  stopAutoSlide();
+  _currentSlideId=id;
+  _progressElapsed=0;
+  updateProgressBar(0);
+  _progressTimer=setInterval(()=>{
+    _progressElapsed+=PROGRESS_INTERVAL;
+    updateProgressBar(Math.min((_progressElapsed/SLIDE_DURATION)*100,100));
+  },PROGRESS_INTERVAL);
+  _slideTimer=setInterval(()=>{
+    const next=(curImgIdx%3)+1;
+    setMainImg(_currentSlideId,next,false);
+    _progressElapsed=0;
+    updateProgressBar(0);
+  },SLIDE_DURATION);
+}
+function stopAutoSlide(){
+  if(_slideTimer)    {clearInterval(_slideTimer);    _slideTimer=null;}
+  if(_progressTimer) {clearInterval(_progressTimer); _progressTimer=null;}
+  updateProgressBar(0);
+}
+function updateProgressBar(pct){
+  const fill=document.getElementById('camProgressFill');
+  if(fill) fill.style.width=pct+'%';
+}
+
+/* ─────────────────────────────────────────────
+   MAIN IMAGE + THUMBNAIL SWITCH
+───────────────────────────────────────────── */
+function setMainImg(id,n,manual){
+  curImgIdx=n;
+  document.getElementById('camImg').innerHTML=
+    `<img src="${camImgPath(id,n)}" alt="camera view ${n}">`;
+  document.querySelectorAll('.cam-th').forEach(th=>{
+    th.classList.toggle('on',th.dataset.n===String(n)&&th.dataset.id===id);
+  });
+  if(manual) startAutoSlide(id);
+}
+
+/* ─────────────────────────────────────────────
+   DRIVE LINKS MAP
+───────────────────────────────────────────── */
+const DRIVE_LINKS={
+  'AK-C321N-28':'https://drive.google.com/file/d/1Fe7B67UUEEN4LKET9YwrbZbhgjzEs2wQ/view',
+  'AK-C321N-4':'https://drive.google.com/file/d/1PuY-kD6CKJlwzqHhWWMaktVSAnFiRVri/view',
+  'AK-C320N':'https://drive.google.com/file/d/1edkNjhGb5cUU0SMWqTHhrz7SnOMYZzea/view',
+  'TC-C32QN-2ENA-4':'https://drive.google.com/file/d/1ujrH4wKmXthuFQ6i_eAq6iUaOdDDzx3N/view',
+  'TC-C34QN-2ENA-28':'https://drive.google.com/file/d/1CjWO9O98dCUD8SP2PlqoIhFzcUV9PATT/view',
+  'TC-C34QN-2ENA-4':'https://drive.google.com/file/d/1xMrgkhcqpDgRPfobmZ4y28b176U2dUuW/view',
+  'TC-C32XN-2ENA-28':'https://drive.google.com/file/d/1pU6dol5VJCThvPOCDk0mfp3vdIMhAgYt/view',
+  'TC-C34XN-2ENA-28':'https://drive.google.com/file/d/1aawm_xUeJtscrFnSOKAnf9BXCG0To6lk/view',
+  'TC-C32WS-3LRA-28':'https://drive.google.com/file/d/16r-Q3eayJEQ5Svbeg58u5pRPrsVdEk8B/view',
+  'TC-C34KN-varifocal':'https://drive.google.com/file/d/1oaNPWuLoh92M0uHxmvzGhQ79w6wvX6Nj/view',
+  'TC-C34KS-2CTB-2812':'https://drive.google.com/file/d/1_laU1roKoHE7EWp2s5AOK7hOWWwUGTR2/view',
+  'TC-C32QV-2FNA-28':'https://drive.google.com/file/d/1YgJ0E7YE31omonH8_GbHsdXHIyVvA1Kn/view',
+  'TC-C34UV-3FRB-4':'https://drive.google.com/file/d/19_vyuB8sYuiCIOyRqqg_ukuWzlEq3O_Z/view',
+  'TC-C35XS-I3W-E-Y-S-28-V50':'https://drive.google.com/file/d/1ccuW9bDQNv_r_fC5EZByWFuz2u8973dl/view',
+  'TC-C35US-LK-I5W-E-Y-M-S-28-V50':'https://drive.google.com/file/d/1CPWZNj5hWSAHUmw82_PQFKKmGoZooKHW/view',
+  'TC-C38XS-3LRA-28':'https://drive.google.com/file/d/1fykjKgT4ARclAdYaPr0jBppT8g52-fJ5/view',
+  'TC-C38WS-3LRA-28':'https://drive.google.com/file/d/1Ib75T4JAQn9udDGav5YJN6rrK12hEe-c/view',
+  'TC-C35VN-I3-E-Y-14-V42':'https://drive.google.com/file/d/1LE3G2qZzFzj0R0htAe_Oh6rqtgKkMe8i/view',
+  'TC-C32KN-I3-A-E-Y-2812-V42-BG':'https://drive.google.com/file/d/1ehfT-X_OSlSSVwyP_oydD04yhIvgrX1G/view',
+  'TC-C34UN-I8-A-E-2812-VJ042':'https://drive.google.com/file/d/11OLvf5iLG28vDLQah0xW1KBQKN4tfZHg/view',
+  'TC-C34KN-I3-A-E-2812-VJ042':'https://drive.google.com/file/d/1i1q0THNDUnBSqrxVb1vlRt6Pz6RN8Jmi/view',
+  'TC-C35MS-3LHA-27135':'https://drive.google.com/file/d/1Fh7afKrQ2KOaJQR-mODf7hxoMEeZ9i9T/view',
+  'TC-C38MS-3LHA-27135':'https://drive.google.com/file/d/1JAGnpcdRx4hqdTwYgfl0L4wazINPAC9B/view',
+  'TC-C345N-2MP-DUAL-PANORAMIC':'',
+  'TC-C38RN-2ANA-28':'',
+  'TC-C35PS-I3-E-Y-M-H-28-V42':'https://drive.google.com/file/d/14CD8YkVXQvrb81Q4kNkXrnBg6FFs8Jou/view',
+  'TC-C382V-W-E-Y-S-H-28':'https://drive.google.com/file/d/1dAIPALm4SkUnoRmYbWg3WNaOai7_WyKe/view',
+  'TC-C34LQ-LK-I3W-A-E-Y-M-S-H-LPR-832':'https://drive.google.com/file/d/1vT4QanHLYAtCX7h4PELSi1ITEfpAM5Ua/view',
+  'TC-H332A-9DA-4':'https://drive.google.com/file/d/1HY1v2yuXB5oYYwdAErxYh7VURLBq_r5M/view',
+  'TC-H332N-9DB-4':'https://drive.google.com/file/d/1BWmJEbNtfNtws1wtfUIw8z5betI3kP4P/view',
+  'TC-H333K-AK-I5W-WIFI-EU-4MM':'https://drive.google.com/file/d/1C2lkbRlMD2QCnEPHZ38Tp_jDo93ZmCPq/view',
+  '':'',
+  '':'',
+  '':'',
+
+  '':'',
+  '':'',
+  '':'',
+
+  '':'',
+
+  'TC-H363N 9DB-4':'https://drive.google.com/file/d/1wxBYLeBQ4PIYv2AErfCkJckwfAJgtbqK/view',
+};
+
+/* ─────────────────────────────────────────────
+   DOWNLOAD SPEC SHEET
+───────────────────────────────────────────── */
+function downloadSpecSheet(){
+  if(!_curModelData) return;
+  const m=_curModelData;
+
+  const driveLink=DRIVE_LINKS[m.id];
+  if(driveLink){
+    window.open(driveLink,'_blank');
+    return;
+  }
+
+  const seriesName=DATA[curS].name;
+  const today=new Date().toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});
+
+  const specsHTML=m.specs.map(sp=>`
+    <tr>
+      <td class="spec-key">${sp.k}</td>
+      <td class="spec-val">${sp.v}${sp.u?' <span class="spec-unit">'+sp.u+'</span>':''}</td>
+    </tr>`).join('');
+
+  const featsHTML=m.feats.map(f=>`<li>${f}</li>`).join('');
+
+  const html=`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Spec Sheet — ${m.id}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;padding:40px 48px;max-width:900px;margin:auto;}
+  @media print{body{padding:24px 32px;}}
+
+  /* Header */
+  .sh-header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:24px;border-bottom:3px solid #c8a96e;margin-bottom:28px;}
+  .sh-brand{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:6px;color:#0a0a0a;}
+  .sh-series{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#c8a96e;margin-top:4px;}
+  .sh-right{text-align:right;}
+  .sh-badge{display:inline-block;background:#c8a96e;color:#fff;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;padding:3px 10px;margin-bottom:6px;}
+  .sh-date{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#999;}
+
+  /* Model name */
+  .sh-model-id{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:#c8a96e;margin-bottom:6px;}
+  .sh-model-name{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:#0a0a0a;margin-bottom:4px;}
+  .sh-model-line{font-size:13px;color:#666;font-weight:300;margin-bottom:20px;}
+
+  /* Description */
+  .sh-desc{font-size:13px;color:#444;line-height:1.8;font-weight:300;padding:16px;background:#f8f6f1;border-left:3px solid #c8a96e;margin-bottom:28px;}
+
+  /* Specs table */
+  .sh-section-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:4px;color:#c8a96e;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #e0d8c8;}
+  .sh-specs{width:100%;border-collapse:collapse;margin-bottom:28px;}
+  .sh-specs tr{border-bottom:1px solid #ece8df;}
+  .sh-specs tr:last-child{border-bottom:none;}
+  .spec-key{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#888;padding:10px 12px 10px 0;width:40%;vertical-align:top;}
+  .spec-val{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:#1a1a1a;padding:10px 0;}
+  .spec-unit{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#c8a96e;margin-left:4px;vertical-align:middle;}
+
+  /* Features */
+  .sh-feats{list-style:none;margin-bottom:32px;}
+  .sh-feats li{font-size:13px;color:#444;line-height:1.6;font-weight:300;padding:7px 0 7px 18px;border-bottom:1px solid #ece8df;position:relative;}
+  .sh-feats li:last-child{border-bottom:none;}
+  .sh-feats li::before{content:'';position:absolute;left:0;top:15px;width:6px;height:6px;border-radius:50%;background:#c8a96e;}
+
+  /* Footer */
+  .sh-footer{margin-top:32px;padding-top:16px;border-top:1px solid #e0d8c8;display:flex;justify-content:space-between;align-items:center;}
+  .sh-footer-brand{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:4px;color:#c8a96e;}
+  .sh-footer-note{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#bbb;}
+
+  /* Print button — hidden when printing */
+  .sh-print-btn{display:flex;align-items:center;gap:8px;margin:0 auto 28px;padding:11px 28px;background:transparent;border:1px solid #c8a96e;color:#c8a96e;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;cursor:pointer;transition:all .2s;}
+  .sh-print-btn:hover{background:#c8a96e;color:#fff;}
+  @media print{.sh-print-btn{display:none!important;}}
+  .sh-print-wrap{text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="sh-print-wrap">
+  <button class="sh-print-btn" onclick="window.print()">
+    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 5V1h8v4M3 10H2a1 1 0 01-1-1V6a1 1 0 011-1h10a1 1 0 011 1v3a1 1 0 01-1 1h-1M3 8h8v5H3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+    </svg>
+    PRINT / SAVE AS PDF
+  </button>
+</div>
+
+<div class="sh-header">
+  <div>
+    <div class="sh-brand">TIANDY</div>
+    <div class="sh-series">${seriesName} · PRODUCT SPECIFICATION</div>
+  </div>
+  <div class="sh-right">
+    <div class="sh-badge">${m.badge}</div>
+    <div class="sh-date">ISSUED: ${today}</div>
+  </div>
+</div>
+
+<div class="sh-model-id">MODEL NO. ${m.id}</div>
+<div class="sh-model-name">${m.name}</div>
+<div class="sh-model-line">${m.line}</div>
+
+<div class="sh-desc">${m.desc}</div>
+
+<div class="sh-section-label">KEY SPECIFICATIONS</div>
+<table class="sh-specs">
+  ${specsHTML}
+</table>
+
+<div class="sh-section-label">FEATURES &amp; HIGHLIGHTS</div>
+<ul class="sh-feats">
+  ${featsHTML}
+</ul>
+
+<div class="sh-footer">
+  <div class="sh-footer-brand">TIANDY</div>
+  <div class="sh-footer-note">SPECIFICATION SUBJECT TO CHANGE WITHOUT NOTICE · WWW.TIANDY.COM</div>
+</div>
+
+</body>
+</html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`Tiandy_SpecSheet_${m.id}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ─────────────────────────────────────────────
+   SLIDER — build cards + handle scroll sync
+───────────────────────────────────────────── */
+function renderSlider(){
+  const d=DATA[curS];
+  const models=d.models;
+  const total=models.length;
+  const vis=getVisible();
+  const scroll=document.getElementById('sliderScroll');
+  const viewport=document.getElementById('sliderScroll').parentElement;
+  const gap=window.innerWidth<=600?12:window.innerWidth>=1920?24:18;
+  const vw=viewport.offsetWidth;
+  const cardW=(vw-(Math.floor(vis)-1)*gap)/vis;
+
+  document.getElementById('sliderTrack').innerHTML=models.map(m=>`
+    <div class="m-card" style="width:${cardW}px" onclick="showCam('${m.id}')">
+      <div class="m-img">
+        <img src="${camImgPath(m.id,1)}" alt="${m.name}"
+             onerror="this.style.opacity='0.15';this.style.filter='grayscale(1)'">
+        <div class="m-badge">${m.badge}</div>
+      </div>
+      <div class="m-info">
+        <div class="m-ser">${curS} SERIES</div>
+        <div class="m-name">${m.name}</div>
+        <div class="m-line">${m.line}</div>
+        <div class="m-chips">
+          <div class="chip">${m.specs[0].v} ${m.specs[0].u}</div>
+          <div class="chip">${m.specs[1].v}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const track=document.getElementById('sliderTrack');
+  const totalW=total*(cardW+gap)-gap;
+  track.style.width=totalW+'px';
+  track.style.minWidth=totalW+'px';
+
+  const offset=slideIdx*(cardW+gap);
+  scroll.scrollLeft=offset;
+
+  const maxDotIdx=Math.max(0,total-Math.floor(vis));
+  const dots=document.getElementById('sliderDots');
+  dots.innerHTML=Array.from({length:total},(_,i)=>`
+    <div class="s-dot ${i===slideIdx?'active':''}" onclick="goToSlide(${i})"></div>
+  `).join('');
+
+  document.getElementById('snCur').textContent=String(slideIdx+1).padStart(2,'0');
+  document.getElementById('snTotal').textContent=String(total).padStart(2,'0');
+  document.getElementById('btnPrev').disabled=slideIdx===0;
+  document.getElementById('btnNext').disabled=slideIdx>=total-Math.floor(vis);
+
+  scroll.onscroll=()=>{
+    const newIdx=Math.round(scroll.scrollLeft/(cardW+gap));
+    if(newIdx!==slideIdx){
+      slideIdx=newIdx;
+      document.querySelectorAll('.s-dot').forEach((d,i)=>d.classList.toggle('active',i===newIdx));
+      document.getElementById('snCur').textContent=String(newIdx+1).padStart(2,'0');
+      document.getElementById('btnPrev').disabled=newIdx===0;
+      document.getElementById('btnNext').disabled=newIdx>=total-Math.floor(vis);
+    }
+  };
+}
+
+function slideBy(dir){
+  const d=DATA[curS];
+  const vis=getVisible();
+  const maxIdx=Math.max(0,d.models.length-Math.floor(vis));
+  slideIdx=Math.max(0,Math.min(maxIdx,slideIdx+dir));
+  renderSlider();
+}
+function goToSlide(i){
+  slideIdx=i;
+  renderSlider();
+}
+
+/* ─────────────────────────────────────────────
+   CAMERA DETAIL
+───────────────────────────────────────────── */
+function showCam(id){
+  const sKey=Object.keys(DATA).find(k=>DATA[k].models.some(m=>m.id===id));
+  const m=DATA[sKey].models.find(x=>x.id===id);
+  if(!m) return;
+  curC=id;
+  curImgIdx=1;
+  _curModelData=m;
+
+  document.getElementById('camBadge').textContent=DATA[sKey].name+' · '+m.badge;
+  document.getElementById('camMnum').textContent='MODEL  '+m.id;
+  document.getElementById('camDesc').textContent=m.desc;
+  document.getElementById('camSpecs').innerHTML=m.specs.map(sp=>`
+    <div class="sp"><div class="sp-k">${sp.k}</div>
+    <div class="sp-v">${sp.v}${sp.u?`<span class="sp-u">${sp.u}</span>`:''}</div></div>
+  `).join('');
+  document.getElementById('camFeats').innerHTML=m.feats.map(f=>`
+    <div class="feat"><div class="fd"></div><span>${f}</span></div>
+  `).join('');
+
+  document.getElementById('camImg').innerHTML=
+    `<img src="${camImgPath(id,1)}" alt="${m.name}">`;
+
+  document.getElementById('camThumbs').innerHTML=[1,2,3].map(n=>`
+    <div class="cam-th ${n===1?'on':''}" data-id="${id}" data-n="${n}"
+         onclick="setMainImg('${id}',${n},true)">
+      <img src="${camImgPath(id,n)}" alt="view ${n}"
+           onerror="this.parentElement.style.opacity='0.3'">
+    </div>
+  `).join('');
+
+  const camImgEl=document.getElementById('camImg');
+  const camThumbsEl=document.getElementById('camThumbs');
+  camImgEl.onmouseenter=()=>stopAutoSlide();
+  camImgEl.onmouseleave=()=>startAutoSlide(id);
+  camThumbsEl.onmouseenter=()=>stopAutoSlide();
+  camThumbsEl.onmouseleave=()=>startAutoSlide(id);
+
+  const dlNote=document.getElementById('camDlNote');
+  if(dlNote){
+    dlNote.textContent=DRIVE_LINKS[id]
+      ?'DIRECT DOWNLOAD FROM GOOGLE DRIVE'
+      :'SAVES AS HTML · PRINT TO PDF FOR BEST RESULTS';
+  }
+
+  document.querySelector('.cam-right').scrollTop=0;
+
+  nav(); show('p-camera');
+  startAutoSlide(id);
+}
+
+/* ─────────────────────────────────────────────
+   NAV / ROUTING
+───────────────────────────────────────────── */
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function nav(){
+  const bb=document.getElementById('backBtn');
+  const bar=document.getElementById('breadBar');
+  if(!curS){bb.classList.remove('show');bar.style.display='none';return;}
+  bb.classList.add('show');bar.style.display='flex';
+  let h=`<span class="crumb" onclick="goHome()">HOME</span>`;
+  if(curS){
+    h+=`<span class="sep">/</span>`;
+    if(curC){
+      h+=`<span class="crumb" onclick="backSer()">${DATA[curS].name}</span><span class="sep">/</span><span class="crumb cur">${curC}</span>`;
+    } else {
+      h+=`<span class="crumb cur">${DATA[curS].name}</span>`;
+    }
+  }
+  bar.innerHTML=h;
+}
+function goHome(){curS=null;curC=null;_curModelData=null;stopAutoSlide();nav();show('p-home');}
+function backSer(){curC=null;_curModelData=null;slideIdx=0;stopAutoSlide();nav();renderSlider();show('p-series');}
+function goBack(){if(curC)backSer();else goHome();}
+
+function showSeries(code){
+  curS=code;curC=null;_curModelData=null;slideIdx=0;
+  const d=DATA[code];
+  const serNum=SERIES_ORDER.indexOf(code)+1;
+  document.getElementById('sEyebrow').textContent=`SERIES ${String(serNum).padStart(2,'0')}`;
+  document.getElementById('sCode').textContent=code;
+  document.getElementById('sName').textContent=d.name;
+  document.getElementById('sSub').textContent=d.sub;
+  document.getElementById('sCountNum').textContent=d.models.length;
+  renderSlider();
+  nav();show('p-series');
+}
+
+window.addEventListener('resize',()=>{
+  if(curS&&!curC) renderSlider();
+});
+</script>
+</body>
+</html>
