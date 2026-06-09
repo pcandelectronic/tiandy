@@ -716,6 +716,16 @@ html,body{
         <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
       </div>
     </div>
+    <div class="s-card" onclick="showSeries('4G camera')">
+      <div class="s-bigcode">4G</div>
+      <div class="s-num">SERIES 06</div>
+      <div class="s-code">4G</div>
+      <p class="s-desc">4G Camera.</p>
+      <div class="s-footer">
+        <div class="s-count">2 MODELS</div>
+        <div class="s-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1518,7 +1528,7 @@ const DATA={
   Tian:{
     name:'TIAN SERIES',
     eyebrow:'SERIES 04',
-    sub:'Wire-free and Wi-Fi network cameras for flexible, quick-deploy residential and light commercial surveillance — no cabling required.',
+    sub:'Wi-Fi network cameras for flexible, quick-deploy residential and light commercial surveillance — no cabling required.',
     models:[
       {
         id: 'TC-H332A-9DA-4',
@@ -1596,8 +1606,50 @@ const DATA={
           'IP66 weatherproof protection for outdoor installation',
           'Wi-Fi-enabled PT functionality for flexible remote monitoring'
         ]
-      },
-      {
+      }
+    ]
+  },
+    '4G camera':{
+      name:'4G SERIES',
+      eyebrow:'SERIES 06',
+      sub:'Smart 4G pan-tilt cameras featuring auto-tracking, two-way audio, active deterrence alarms, and flexible remote monitoring for homes, offices, and small businesses.',
+      models:[
+        {
+          id: 'TC-H363N 9DB-4',
+          name: 'TC-H363N 9DB-4',
+          badge: '4G SOLAR',
+          line: 'Dual 3MP Auto-Tracking Solar Camera',
+          desc: 'A dual-lens 4G solar security camera with panoramic and detail views, AI human and vehicle detection, auto-tracking, two-way audio, and red-blue alarm warning lights for remote outdoor surveillance.',
+
+          specs: [
+            { k: 'RESOLUTION', v: '3MP+3MP', u: '2304×1296' },
+            { k: 'LENS', v: '4mm', u: 'Dual Lens' },
+            { k: 'IR RANGE', v: '30', u: 'M' },
+            { k: 'WHITE LIGHT', v: '20', u: 'M' },
+            { k: 'STORAGE', v: 'microSD', u: '256GB' },
+            { k: 'CONNECTIVITY', v: '4G', u: 'SIM' }
+          ],
+
+          feats: [
+            'Dual 3MP CMOS sensors for panorama and detail monitoring',
+            'Maximum resolution up to 2304×1296@20fps',
+            'Smart human and vehicle detection',
+            'AI auto-tracking of moving targets',
+            'Built-in microphone and loudspeaker for two-way communication',
+            'IR night vision up to 30m',
+            'White light illumination up to 20m',
+            'Red and blue alarm flash warning system',
+            'Supports S+265 and H.265 video compression',
+            'Supports microSD card storage up to 256GB',
+            '64 preset positions',
+            'Ultra-low-light performance down to 0.02Lux',
+            'Remote access through Easy7 VMS',
+            'IP65 weatherproof protection',
+            'Surge protection up to 500V and ESD protection up to 6000V',
+            'Ideal for farms, construction sites, remote properties, and off-grid monitoring'
+          ]
+        },
+        {
         id: 'TC-H333D-9DB-4',
         name: 'TC-H333D 9DB-4',
         badge: 'PT',
@@ -1623,36 +1675,8 @@ const DATA={
           'IP66 weatherproof protection suitable for outdoor deployment'
         ]
       },
-      {
-        id: 'TC-H363N-9DB-4',
-        name: 'TC-H363N 9DB-4',
-        badge: '4G PT',
-        line: '6MP Fixed Color Maker 4G PT Camera',
-        desc: 'A dual-lens 6MP 4G PT camera with panoramic and detail views, auto-tracking, smart human/vehicle detection, built-in audio, and red-blue warning lights for remote outdoor surveillance.',
-        specs: [
-          { k: 'RESOLUTION', v: '6MP', u: '2304×1296' },
-          { k: 'LENS TYPE', v: 'Dual Lens', u: '4mm' },
-          { k: 'IR RANGE', v: '30', u: 'M' },
-          { k: 'WHITE LIGHT', v: '20', u: 'M' },
-          { k: 'STORAGE', v: 'microSD', u: '256GB' },
-          { k: 'PROTECTION', v: 'IP65', u: '' }
-        ],
-        feats: [
-          'Dual-lens design with panoramic and detail monitoring',
-          '6MP total resolution with dual 3MP image sensors',
-          'Supports auto-tracking for moving targets',
-          'Smart human and vehicle detection alarms',
-          'Built-in microphone and loudspeaker for two-way audio',
-          'Red and blue alarm flash warning lights included',
-          'IR night vision up to 30m with white light support up to 20m',
-          'Supports microSD storage up to 256GB',
-          '4G remote surveillance solution for locations without wired internet',
-          'Weather-resistant IP65 protection for outdoor environments'
-        ]
-      }
-    ]
-  },
-
+      ]
+    },
   PTZ:{
     name:'PTZ SERIES',
     eyebrow:'SERIES 05',
@@ -1754,7 +1778,48 @@ function setMainImg(id,n,manual){
    DRIVE LINKS MAP
 ───────────────────────────────────────────── */
 const DRIVE_LINKS={
-  'TC-H363N-9DB-4':'https://drive.google.com/uc?export=download&id=1Fe7B67UUEEN4LKET9YwrbZbhgjzEs2wQ',
+  'AK-C321N-28':'https://drive.google.com/file/d/1Fe7B67UUEEN4LKET9YwrbZbhgjzEs2wQ/view',
+  'AK-C321N-4':'https://drive.google.com/file/d/1PuY-kD6CKJlwzqHhWWMaktVSAnFiRVri/view',
+  'AK-C320N':'https://drive.google.com/file/d/1edkNjhGb5cUU0SMWqTHhrz7SnOMYZzea/view',
+  'TC-C32QN-2ENA-4':'https://drive.google.com/file/d/1ujrH4wKmXthuFQ6i_eAq6iUaOdDDzx3N/view',
+  'TC-C34QN-2ENA-28':'https://drive.google.com/file/d/1CjWO9O98dCUD8SP2PlqoIhFzcUV9PATT/view',
+  'TC-C34QN-2ENA-4':'https://drive.google.com/file/d/1xMrgkhcqpDgRPfobmZ4y28b176U2dUuW/view',
+  'TC-C32XN-2ENA-28':'https://drive.google.com/file/d/1pU6dol5VJCThvPOCDk0mfp3vdIMhAgYt/view',
+  'TC-C34XN-2ENA-28':'https://drive.google.com/file/d/1aawm_xUeJtscrFnSOKAnf9BXCG0To6lk/view',
+  'TC-C32WS-3LRA-28':'https://drive.google.com/file/d/16r-Q3eayJEQ5Svbeg58u5pRPrsVdEk8B/view',
+  'TC-C34KN-varifocal':'https://drive.google.com/file/d/1oaNPWuLoh92M0uHxmvzGhQ79w6wvX6Nj/view',
+  'TC-C34KS-2CTB-2812':'https://drive.google.com/file/d/1_laU1roKoHE7EWp2s5AOK7hOWWwUGTR2/view',
+  'TC-C32QV-2FNA-28':'https://drive.google.com/file/d/1YgJ0E7YE31omonH8_GbHsdXHIyVvA1Kn/view',
+  'TC-C34UV-3FRB-4':'https://drive.google.com/file/d/19_vyuB8sYuiCIOyRqqg_ukuWzlEq3O_Z/view',
+  'TC-C35XS-I3W-E-Y-S-28-V50':'https://drive.google.com/file/d/1ccuW9bDQNv_r_fC5EZByWFuz2u8973dl/view',
+  'TC-C35US-LK-I5W-E-Y-M-S-28-V50':'https://drive.google.com/file/d/1CPWZNj5hWSAHUmw82_PQFKKmGoZooKHW/view',
+  'TC-C38XS-3LRA-28':'https://drive.google.com/file/d/1fykjKgT4ARclAdYaPr0jBppT8g52-fJ5/view',
+  'TC-C38WS-3LRA-28':'https://drive.google.com/file/d/1Ib75T4JAQn9udDGav5YJN6rrK12hEe-c/view',
+  'TC-C35VN-I3-E-Y-14-V42':'https://drive.google.com/file/d/1LE3G2qZzFzj0R0htAe_Oh6rqtgKkMe8i/view',
+  'TC-C32KN-I3-A-E-Y-2812-V42-BG':'https://drive.google.com/file/d/1ehfT-X_OSlSSVwyP_oydD04yhIvgrX1G/view',
+  'TC-C34UN-I8-A-E-2812-VJ042':'https://drive.google.com/file/d/11OLvf5iLG28vDLQah0xW1KBQKN4tfZHg/view',
+  'TC-C34KN-I3-A-E-2812-VJ042':'https://drive.google.com/file/d/1i1q0THNDUnBSqrxVb1vlRt6Pz6RN8Jmi/view',
+  'TC-C35MS-3LHA-27135':'https://drive.google.com/file/d/1Fh7afKrQ2KOaJQR-mODf7hxoMEeZ9i9T/view',
+  'TC-C38MS-3LHA-27135':'https://drive.google.com/file/d/1JAGnpcdRx4hqdTwYgfl0L4wazINPAC9B/view',
+  'TC-C345N-2MP-DUAL-PANORAMIC':'',
+  'TC-C38RN-2ANA-28':'',
+  'TC-C35PS-I3-E-Y-M-H-28-V42':'https://drive.google.com/file/d/14CD8YkVXQvrb81Q4kNkXrnBg6FFs8Jou/view',
+  'TC-C382V-W-E-Y-S-H-28':'https://drive.google.com/file/d/1dAIPALm4SkUnoRmYbWg3WNaOai7_WyKe/view',
+  'TC-C34LQ-LK-I3W-A-E-Y-M-S-H-LPR-832':'https://drive.google.com/file/d/1vT4QanHLYAtCX7h4PELSi1ITEfpAM5Ua/view',
+  'TC-H332A-9DA-4':'https://drive.google.com/file/d/1HY1v2yuXB5oYYwdAErxYh7VURLBq_r5M/view',
+  'TC-H332N-9DB-4':'https://drive.google.com/file/d/1BWmJEbNtfNtws1wtfUIw8z5betI3kP4P/view',
+  'TC-H333K-AK-I5W-WIFI-EU-4MM':'https://drive.google.com/file/d/1C2lkbRlMD2QCnEPHZ38Tp_jDo93ZmCPq/view',
+  '':'',
+  '':'',
+  '':'',
+
+  '':'',
+  '':'',
+  '':'',
+
+  '':'',
+
+  'TC-H363N 9DB-4':'https://drive.google.com/file/d/1wxBYLeBQ4PIYv2AErfCkJckwfAJgtbqK/view',
 };
 
 /* ─────────────────────────────────────────────
